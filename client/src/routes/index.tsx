@@ -4,6 +4,7 @@ import { Navigate, useRoutes, useLocation, useNavigate } from 'react-router-dom'
 import Login from '../pages/authentication/Login';
 //import Logout from '../components/authentication/login/Logout';
 import Register from '../pages/authentication/Register';
+import RegisterCode from '../pages/authentication/RegisterCode';
 // import GuestGuard from '../guards/GuestGuard';
 // import AuthGuard from '../guards/AuthGuard';
 // import LoadingScreen from '../components/LoadingScreen';
@@ -52,6 +53,14 @@ export default function Router() {
           element: (
             //<GuestGuard>
               <Register />
+            //</GuestGuard>
+          )
+        },
+        {
+          path: 'register/code',
+          element: (
+            //<GuestGuard>
+              <RegisterCode />
             //</GuestGuard>
           )
         },

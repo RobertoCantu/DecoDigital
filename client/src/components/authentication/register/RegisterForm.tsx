@@ -1,8 +1,21 @@
 import React from "react";
-import { Grid, Box, TextField, FormControlLabel, Checkbox, Link, Button, Container } from "@mui/material";
+import {
+  Grid,
+  Box,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Button,
+  Container,
+} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 
 const theme = createTheme();
 
@@ -14,6 +27,12 @@ function RegisterForm() {
       email: data.get("email"),
       password: data.get("password"),
     });
+  };
+
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
   };
 
   return (
@@ -34,69 +53,105 @@ function RegisterForm() {
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="nuc"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="NUC"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="contract"
-                  label="Contract number"
-                  name="contract"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="telephone"
-                  label="Telephone"
-                  name="telephone"
-                  autoComplete="telephone"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
+            <Box sx={{ width: "100%", typography: "body1" }}>
+              <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList
+                    onChange={handleChange}
+                    aria-label="lab API tabs example"
+                  >
+                    <Tab label="NUC" value="1" />
+                    <Tab label="Contract #" value="2" />
+                  </TabList>
+                </Box>
+                <TabPanel value="1">
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        autoComplete="given-name"
+                        name="nuc"
+                        required
+                        fullWidth
+                        id="firstName"
+                        label="NUC"
+                        autoFocus
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="telephone"
+                        label="Telephone"
+                        name="telephone"
+                        autoComplete="telephone"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    href="/auth/register/code" // <--- Quitar esto una vez se programe el registro
+                  >
+                    Sign Up
+                  </Button>
+                </TabPanel>
+
+                {/* By contract number ------------------- */}
+                <TabPanel value="2">
+                  {" "}
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        autoComplete="given-name"
+                        name="contract"
+                        required
+                        fullWidth
+                        id="contract"
+                        label="Contract #"
+                        autoFocus
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="city"
+                        label="Municipio"
+                        name="city"
+                        autoComplete="family-name"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="telephone"
+                        label="Telephone"
+                        name="telephone"
+                        autoComplete="telephone"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    href="/auth/register/code" // <--- Quitar esto una vez se programe el registro
+              
+                  >
+                    Sign Up
+                  </Button>
+                </TabPanel>
+              </TabContext>
+            </Box>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/auth/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -108,3 +163,35 @@ function RegisterForm() {
   );
 }
 export default RegisterForm;
+
+// import * as React from 'react';
+// import Box from '@mui/material/Box';
+// import Tab from '@mui/material/Tab';
+// import TabContext from '@mui/lab/TabContext';
+// import TabList from '@mui/lab/TabList';
+// import TabPanel from '@mui/lab/TabPanel';
+
+// export default function LabTabs() {
+// const [value, setValue] = React.useState('1');
+
+// const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+//   setValue(newValue);
+// };
+
+//   return (
+//     <Box sx={{ width: '100%', typography: 'body1' }}>
+//       <TabContext value={value}>
+//         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+//           <TabList onChange={handleChange} aria-label="lab API tabs example">
+//             <Tab label="Item One" value="1" />
+//             <Tab label="Item Two" value="2" />
+//             <Tab label="Item Three" value="3" />
+//           </TabList>
+//         </Box>
+//         <TabPanel value="1">Item One</TabPanel>
+//         <TabPanel value="2">Item Two</TabPanel>
+//         <TabPanel value="3">Item Three</TabPanel>
+//       </TabContext>
+//     </Box>
+//   );
+// }
