@@ -3,7 +3,7 @@ import { Navigate, useRoutes, useLocation, useNavigate } from 'react-router-dom'
 //import DashboardLayout from '../layouts/dashboard';
 import Login from '../pages/authentication/Login';
 //import Logout from '../components/authentication/login/Logout';
-// import Register from '../pages/authentication/Register';
+import Register from '../pages/authentication/Register';
 // import GuestGuard from '../guards/GuestGuard';
 // import AuthGuard from '../guards/AuthGuard';
 // import LoadingScreen from '../components/LoadingScreen';
@@ -47,14 +47,14 @@ export default function Router() {
             //</GuestGuard>
           )
         },
-        // {
-        //   path: 'register',
-        //   element: (
-        //     <GuestGuard>
-        //       <Register />
-        //     </GuestGuard>
-        //   )
-        // },
+        {
+          path: 'register',
+          element: (
+            //<GuestGuard>
+              <Register />
+            //</GuestGuard>
+          )
+        },
         // {
         //   path: 'logout',
         //   element: <Logout/>
