@@ -5,35 +5,34 @@ type Props = {};
 
 const ZonaHabitacional = (props: Props) => {
   return (
-    <Grid
-      xs={4}
+    <Box
       sx={{
+        display: "flex",
+        flexDirection: "column",
+        p: 4,
         bgcolor: "#BBDEFB",
-        m: 1,
-        p: 1,
+        mt: 3,
+        mb: 3,
         borderRadius: 1,
-        width: 1 / 2,
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", p: 4 }}>
-        <div style={{ paddingBottom: "0.5em" }}>
-          <strong>Denominacion:</strong>
-          <span></span>
-        </div>
-        <div style={{ paddingBottom: "0.5em" }}>
-          <strong>Nombre:</strong>
-          <span></span>
-        </div>
-        <div style={{ paddingBottom: "0.5em" }}>
-          <strong>Zona:</strong>
-          <span></span>
-        </div>
-        <div style={{ paddingBottom: "0.5em" }}>
-          <strong>Caraterísticas del domicilio:</strong>
-          <span></span>
-        </div>
-      </Box>
-    </Grid>
+      <div style={{ paddingBottom: "0.5em" }}>
+        <strong>Denominacion:</strong>
+        <span></span>
+      </div>
+      <div style={{ paddingBottom: "0.5em" }}>
+        <strong>Nombre:</strong>
+        <span></span>
+      </div>
+      <div style={{ paddingBottom: "0.5em" }}>
+        <strong>Zona:</strong>
+        <span></span>
+      </div>
+      <div style={{ paddingBottom: "0.5em" }}>
+        <strong>Caraterísticas del domicilio:</strong>
+        <span></span>
+      </div>
+    </Box>
   );
 };
 

@@ -1,7 +1,13 @@
-import { Suspense, lazy } from 'react';
-import { Navigate, useRoutes, useLocation, useNavigate } from 'react-router-dom';
+import { Suspense, lazy } from "react";
+import {
+  Navigate,
+  useRoutes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 //import DashboardLayout from '../layouts/dashboard';
-import Login from '../pages/authentication/Login';
+import Login from "../pages/authentication/Login";
+import ClientGrid from "../components/client_info/ClientGrid";
 //import Logout from '../components/authentication/login/Logout';
 // import Register from '../pages/authentication/Register';
 // import GuestGuard from '../guards/GuestGuard';
@@ -37,15 +43,15 @@ import Login from '../pages/authentication/Login';
 export default function Router() {
   return useRoutes([
     {
-      path: 'auth',
+      path: "auth",
       children: [
         {
-          path: 'login',
+          path: "login",
           element: (
             //<GuestGuard>
-              <Login />
+            <Login />
             //</GuestGuard>
-          )
+          ),
         },
         // {
         //   path: 'register',
@@ -59,9 +65,12 @@ export default function Router() {
         //   path: 'logout',
         //   element: <Logout/>
         // },
-      ]
+      ],
     },
-
+    {
+      path: "client_info",
+      element: <ClientGrid />,
+    },
     // // Dashboard Routes
     // {
     //   path: 'dashboard',
@@ -72,10 +81,10 @@ export default function Router() {
     //   ),
     //   children: [
     //     { path: '/dashboard', element: <HomePage /> },
-    //   ] 
+    //   ]
     // },
     // { path: '/', element: <Navigate to="/auth/login" replace /> }
-  ])
+  ]);
 }
 
 // // Authentication

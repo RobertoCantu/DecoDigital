@@ -5,31 +5,30 @@ type Props = {};
 
 const ContactoCliente = (props: Props) => {
   return (
-    <Grid
-      xs={4}
+    <Box
       sx={{
+        display: "flex",
+        flexDirection: "column",
+        p: 4,
         bgcolor: "#BBDEFB",
-        m: 1,
-        p: 1,
-        width: 1 / 2,
+        mt: 3,
+        mb: 3,
         borderRadius: 1,
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", p: 4 }}>
-        <div style={{ paddingBottom: "0.5em" }}>
-          <strong>Teléfono:</strong>
-          <span>813125659</span>
-        </div>
-        <div style={{ paddingBottom: "0.5em" }}>
-          <strong>Correo(s):</strong>
-          <span> correo@gmail.com</span>
-        </div>
-        <div style={{ paddingBottom: "0.5em" }}>
-          <strong>Redes sociales:</strong>
-          <span></span>
-        </div>
-      </Box>
-    </Grid>
+      <div style={{ paddingBottom: "0.5em" }}>
+        <strong>Teléfono:</strong>
+        <span>813125659</span>
+      </div>
+      <div style={{ paddingBottom: "0.5em" }}>
+        <strong>Correo(s):</strong>
+        <span> correo@gmail.com</span>
+      </div>
+      <div style={{ paddingBottom: "0.5em" }}>
+        <strong>Redes sociales:</strong>
+        <span></span>
+      </div>
+    </Box>
   );
 };
 
