@@ -47,7 +47,7 @@ function RegisterCode() {
                 />
               </Grid>
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} href="/register/auth/pass">Verify</Button>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} href="/auth/register/password">Verify</Button>
           </Box>
         </Box>
       </Container>
