@@ -1,9 +1,18 @@
 import React from "react";
-import { Grid, Box, TextField, FormControlLabel, Checkbox, Link, Button, Container } from "@mui/material";
+import {
+  Grid,
+  Box,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Button,
+  Container,
+} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-
+import './RegisterCode.scss';
 const theme = createTheme();
 
 function RegisterCode() {
@@ -18,7 +27,7 @@ function RegisterCode() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="md" >
+      <Container component="main" maxWidth="md" className="container">
         <CssBaseline />
         <Box
           sx={{
@@ -28,6 +37,10 @@ function RegisterCode() {
             alignItems: "center",
           }}
         >
+          <div className="">
+            <h1>Confirmación enviada</h1>
+            <p>Ingresa el codigo que enviamos a su numero telefonico</p>
+          </div>
           <Box
             component="form"
             noValidate
@@ -35,7 +48,6 @@ function RegisterCode() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              
               <Grid item xs={12}>
                 <TextField
                   required
@@ -47,7 +59,15 @@ function RegisterCode() {
                 />
               </Grid>
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} href="/auth/register/password">Verify</Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              href="/auth/register/password"
+            >
+              Verify
+            </Button>
           </Box>
         </Box>
       </Container>

@@ -17,6 +17,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
+import "./RegisterForm.scss";
+
 const theme = createTheme();
 
 function RegisterForm() {
@@ -37,11 +39,16 @@ function RegisterForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="xl"  className="container">
+        
+        <div className="app__register-head">
+          <h1>Deco Digital</h1>
+          <h2>Crear Cuenta Nueva</h2>
+        </div>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 0,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -64,17 +71,20 @@ function RegisterForm() {
                     <Tab label="Contract #" value="2" />
                   </TabList>
                 </Box>
+
+                {/* Tabs  */}
                 <TabPanel value="1">
-                  <Grid container spacing={2}>
+                  <Grid container spacing={5}>
                     <Grid item xs={12} sm={6}>
                       <TextField
-                        autoComplete="given-name"
+                        autoComplete="nuc"
                         name="nuc"
                         required
                         fullWidth
                         id="firstName"
                         label="NUC"
                         autoFocus
+                        className="input"
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -85,6 +95,7 @@ function RegisterForm() {
                         label="Telephone"
                         name="telephone"
                         autoComplete="telephone"
+                        className="input"
                       />
                     </Grid>
                   </Grid>
@@ -102,7 +113,7 @@ function RegisterForm() {
                 {/* By contract number ------------------- */}
                 <TabPanel value="2">
                   {" "}
-                  <Grid container spacing={2}>
+                  <Grid container spacing={5}>
                     <Grid item xs={12} sm={6}>
                       <TextField
                         autoComplete="given-name"
@@ -141,7 +152,6 @@ function RegisterForm() {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     href="/auth/register/code" // <--- Quitar esto una vez se programe el registro
-              
                   >
                     Sign Up
                   </Button>
@@ -149,9 +159,9 @@ function RegisterForm() {
               </TabContext>
             </Box>
 
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="flex-end" className="app__register-footer">
               <Grid item>
-                <Link href="/auth/login" variant="body2">
+                <Link href="/auth/login" variant="body2" >
                   Already have an account? Sign in
                 </Link>
               </Grid>

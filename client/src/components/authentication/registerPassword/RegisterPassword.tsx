@@ -12,6 +12,7 @@ import {
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import './RegisterPassword.scss';
 
 const theme = createTheme();
 
@@ -27,7 +28,7 @@ function RegisterPassword() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="md">
+      <Container component="main" maxWidth="md" className="container">
         <CssBaseline />
         <Box
           sx={{
@@ -37,6 +38,8 @@ function RegisterPassword() {
             alignItems: "center",
           }}
         >
+          <h1>Codigo verificado</h1>
+          <p>Ingrese su nueva contraseña</p>
           <Box
             component="form"
             noValidate
