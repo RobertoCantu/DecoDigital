@@ -8,6 +8,7 @@ import {
 //import DashboardLayout from '../layouts/dashboard';
 import Login from "../pages/authentication/Login";
 import ClientGrid from "../components/client_info/ClientGrid";
+import Sidebar from "../components/Sidebar";
 //import Logout from '../components/authentication/login/Logout';
 // import Register from '../pages/authentication/Register';
 // import GuestGuard from '../guards/GuestGuard';
@@ -69,7 +70,11 @@ export default function Router() {
     },
     {
       path: "client_info",
-      element: <ClientGrid />,
+      element: (
+        <Sidebar>
+          <ClientGrid />,
+        </Sidebar>
+      ),
     },
     // // Dashboard Routes
     // {
