@@ -10,7 +10,10 @@ import Login from "../pages/authentication/Login";
 import ClientGrid from "../components/client_info/ClientGrid";
 import Sidebar from "../components/Sidebar";
 //import Logout from '../components/authentication/login/Logout';
-// import Register from '../pages/authentication/Register';
+import Register from '../pages/authentication/Register';
+import RegisterCode from '../pages/authentication/RegisterCode';
+import RegisterPassword from '../pages/authentication/RegisterPassword';
+
 // import GuestGuard from '../guards/GuestGuard';
 // import AuthGuard from '../guards/AuthGuard';
 // import LoadingScreen from '../components/LoadingScreen';
@@ -54,14 +57,30 @@ export default function Router() {
             //</GuestGuard>
           ),
         },
-        // {
-        //   path: 'register',
-        //   element: (
-        //     <GuestGuard>
-        //       <Register />
-        //     </GuestGuard>
-        //   )
-        // },
+        {
+          path: 'register',
+          element: (
+            //<GuestGuard>
+              <Register />
+            //</GuestGuard>
+          )
+        },
+        {
+          path: 'register/code',
+          element: (
+            //<GuestGuard>
+              <RegisterCode />
+            //</GuestGuard>
+          )
+        },
+        {
+          path: 'register/password',
+          element: (
+            //<GuestGuard>
+              <RegisterPassword />
+            //</GuestGuard>
+          )
+        },
         // {
         //   path: 'logout',
         //   element: <Logout/>
