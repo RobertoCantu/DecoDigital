@@ -10,9 +10,10 @@ import Login from "../pages/authentication/Login";
 import ClientGrid from "../components/client_info/ClientGrid";
 import Sidebar from "../components/Sidebar";
 //import Logout from '../components/authentication/login/Logout';
-import Register from '../pages/authentication/Register';
-import RegisterCode from '../pages/authentication/RegisterCode';
-import RegisterPassword from '../pages/authentication/RegisterPassword';
+import Register from "../pages/authentication/Register";
+import RegisterCode from "../pages/authentication/RegisterCode";
+import RegisterPassword from "../pages/authentication/RegisterPassword";
+import ProductList from "../pages/Products/ProductList";
 
 // import GuestGuard from '../guards/GuestGuard';
 // import AuthGuard from '../guards/AuthGuard';
@@ -58,28 +59,28 @@ export default function Router() {
           ),
         },
         {
-          path: 'register',
+          path: "register",
           element: (
             //<GuestGuard>
-              <Register />
+            <Register />
             //</GuestGuard>
-          )
+          ),
         },
         {
-          path: 'register/code',
+          path: "register/code",
           element: (
             //<GuestGuard>
-              <RegisterCode />
+            <RegisterCode />
             //</GuestGuard>
-          )
+          ),
         },
         {
-          path: 'register/password',
+          path: "register/password",
           element: (
             //<GuestGuard>
-              <RegisterPassword />
+            <RegisterPassword />
             //</GuestGuard>
-          )
+          ),
         },
         // {
         //   path: 'logout',
@@ -92,6 +93,14 @@ export default function Router() {
       element: (
         <Sidebar>
           <ClientGrid />,
+        </Sidebar>
+      ),
+    },
+    {
+      path: "products",
+      element: (
+        <Sidebar>
+          <ProductList />
         </Sidebar>
       ),
     },
