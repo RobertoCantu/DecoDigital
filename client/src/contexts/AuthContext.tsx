@@ -164,12 +164,10 @@ function AuthProvider({children} : {children: ReactNode}){
     }
   }
 
-  const register = async(firstName: string, lastName: string,
-                         email:string, phone:string, password: string) =>{
+  const register = async(nuc:string, phone:number) =>{
 
     try{
-      const response:any = await authRegister(firstName, lastName, email, phone, 
-        password);
+      const response:any = await authRegister(nuc,phone);
       const { token } = response;
       const user: any = {
         "name": response.name,

@@ -18,18 +18,15 @@ export async function login(phone:number,password:string)
   });
 }
 
-export async function register(firstName: string, lastName: string, email:string, phone:string, password: string)
+export async function register(nuc:string, phone: number)
 {
   return new Promise(async (resolve,reject) => {
     const url = '/users/createUser';
 
     try {
       const response =  await axios.post(url, {
-        email,
-        phone,
-        "name": firstName,
-        lastName,
-        password,
+        nuc,
+        phone
       });
 
       resolve(response.data)
