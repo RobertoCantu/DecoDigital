@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Grid,
   Box,
@@ -8,7 +8,12 @@ import {
   Link,
   Button,
   Container,
+  IconButton,
+  InputAdornment,
+  Alert,
 } from "@mui/material";
+
+import * as Yup from "yup";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -16,10 +21,17 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import { Formik, Form, FormikHelpers } from "formik";
+import eyeFill from "@iconify/icons-eva/eye-fill";
+import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
 
 import "./RegisterForm.scss";
 
 const theme = createTheme();
+const RegisterSchema = Yup.object().shape({
+  email: Yup.string().email("El correo debe ser valido.").required("Se requiere un correo."),
+  password: Yup.string().required("Se requiere una contraseña."),
+});
 
 function RegisterForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,8 +51,7 @@ function RegisterForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xl"  className="container">
-        
+      <Container component="main" maxWidth="xl" className="container">
         <div className="app__register-head">
           <h1>Deco Digital</h1>
           <h2>Crear Cuenta Nueva</h2>
@@ -159,9 +170,13 @@ function RegisterForm() {
               </TabContext>
             </Box>
 
-            <Grid container justifyContent="flex-end" className="app__register-footer">
+            <Grid
+              container
+              justifyContent="flex-end"
+              className="app__register-footer"
+            >
               <Grid item>
-                <Link href="/auth/login" variant="body2" >
+                <Link href="/auth/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
