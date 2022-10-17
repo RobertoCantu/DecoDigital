@@ -189,7 +189,7 @@ function RegisterForm() {
               setFieldValue,
             }) => (
               <Form>
-                <Stack spacing={3}>
+                <Stack spacing={2}>
                   {errors.afterSubmit && (
                     <Alert severity="error">{errors.afterSubmit}</Alert>
                   )}
