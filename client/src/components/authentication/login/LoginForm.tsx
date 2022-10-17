@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import * as Yup from 'yup'
 
-
 // UI
 import { Formik, Form, FormikHelpers } from 'formik'
 import { TextField, Stack, IconButton, InputAdornment, Alert } from '@mui/material';
@@ -10,16 +9,19 @@ import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 
+//Utils
+import {PHONE_REGEX} from '../../../utils/regex';
+
 // Interfaces 
 interface InitialValues {
-  email: string;
+  phone: string;
   password: string;
   afterSubmit?: string;
 };
 
 // Schemas 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('El correo debe ser valido.').required('Se requiere un correo.'),
+  phone: Yup.string().min(10, 'El número de celular debe ser de 10 dígitos').required('Se requiere un número de celular.'),
   password: Yup.string().required('Se requiere una contraseña.')
 });
 
@@ -37,7 +39,7 @@ function LoginForm() {
     <div>
     <Formik
       initialValues={{
-        email: '',
+        phone: '',
         password: '',
       }}
       validationSchema={LoginSchema}
@@ -62,20 +64,25 @@ function LoginForm() {
         }
       }}
     >
-      {({handleChange, values, errors, touched, isSubmitting}) => (
+      {({handleChange, values, errors, touched, isSubmitting, setFieldValue}) => (
         <Form>
           <Stack spacing={2}>
             {errors.afterSubmit && <Alert severity="error">{errors.afterSubmit}</Alert>}
             <TextField
               fullWidth
-              autoComplete="email"
-              type="email"
-              label="Correo electrónico"
-              name= "email"
-              value = {values.email}
-              onChange = {handleChange}
-              error={Boolean(touched.email && errors.email)}
-              helperText={touched.email && errors.email}
+              autoComplete="phone"
+              type="text"
+              label="Celular"
+              name= "phone"
+              value = {values.phone}
+              inputProps={{ maxLength: 10 }}
+              onChange={e => {
+                e.preventDefault();
+                const value = e.target.value.replace(PHONE_REGEX, "")
+                setFieldValue("phone", value);
+              }}
+              error={Boolean(touched.phone && errors.phone)}
+              helperText={touched.phone && errors.phone}
             />
             <TextField
               fullWidth
