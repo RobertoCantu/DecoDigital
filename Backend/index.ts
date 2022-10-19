@@ -6,6 +6,9 @@ import rutaRoutes from "./routes/ruta.routes";
 
 const server = new Server();
 
+
+
+
 // Body parser
 server.app.use(bodyParser.urlencoded({extended: true}));
 server.app.use(bodyParser.json());
@@ -21,3 +24,4 @@ server.app.use('/api/ruta',rutaRoutes);
 server.start(() => {
     console.log(`Servidor corriendo en el puerto ${server.port}`);
 });
+

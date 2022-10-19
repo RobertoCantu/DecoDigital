@@ -2,7 +2,14 @@
 import { Router, Request, Response } from "express";
 import Token from "../classes/token";
 import { verifyToken } from "../middlewares/authentication";
+// Imports the Google Cloud client library
+const {BigQuery} = require('@google-cloud/bigquery');
 require("dotenv").config();
+
+const {google} = require('googleapis');
+
+//Testing
+const Students = google.Students;
 
 const rutaRoutes = Router();
 
@@ -10,9 +17,19 @@ const rutaRoutes = Router();
 // rutaRoutes.get("/", verifyToken, (req: any, res: Response) => {
 rutaRoutes.get("/", (req: any, res: Response) => {
   const user = req.user;
+  async function createDataset() {
+    // Creates a client
+    const bigqueryClient = new BigQuery();
+
+    // Create the dataset
+    const [dataset] = await bigqueryClient.createDataset('Grades');
+    console.log(`Dataset ${dataset.id} created.`);
+  }
+  createDataset();
+  
   res.json({
     ok: true,
-    message: "GET",
+    message: "lol",
   });
 });
 
