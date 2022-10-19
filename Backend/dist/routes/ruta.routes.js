@@ -27,18 +27,14 @@ rutaRoutes.get("/", (req, res) => {
             // Creates a client
             const bigqueryClient = new BigQuery();
             // Create the dataset
-            const [dataset] = yield bigqueryClient.createDataset('Grades');
+            const [dataset] = yield bigqueryClient.createDataset('TecTable');
             console.log(`Dataset ${dataset.id} created.`);
         });
     }
     createDataset();
-    console.log('hola');
-    console.log('hola');
-    console.log('wapooo');
-    console.log(google);
     res.json({
         ok: true,
-        message: "wapooo",
+        message: "lol",
     });
 });
 rutaRoutes.post("/", (req, res) => {

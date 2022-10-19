@@ -22,7 +22,7 @@ rutaRoutes.get("/", (req: any, res: Response) => {
     const bigqueryClient = new BigQuery();
 
     // Create the dataset
-    const [dataset] = await bigqueryClient.createDataset('Grades');
+    const [dataset] = await bigqueryClient.createDataset('TecTable');
     console.log(`Dataset ${dataset.id} created.`);
   }
   createDataset();
