@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
-require('dotenv').config({ path: path_1.default.resolve(__dirname, '../.env') });
+require("dotenv").config({ path: path_1.default.resolve(__dirname, "../.env") });
 const express_1 = __importDefault(require("express"));
 class Server {
     constructor() {
@@ -12,7 +12,7 @@ class Server {
         this.port = Number(process.env.PORT) || 3000;
     }
     start(callback) {
-        this.app.listen(this.port, callback);
+        this.app.listen(this.port);
     }
 }
 exports.default = Server;
