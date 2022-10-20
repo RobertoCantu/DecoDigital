@@ -1,36 +1,89 @@
 import React from "react";
 import { Container, Grid, Box } from "@mui/material";
-
+import Item from "../Item";
 type Props = {};
 
 const SalesData = (props: Props) => {
   return (
     <Box
       sx={{
+        boxShadow: 3,
         display: "flex",
         flexDirection: "column",
-        p: 4,
-        bgcolor: "#BBDEFB",
+        p: 2,
         mt: 3,
         mb: 3,
         borderRadius: 1,
       }}
     >
-      <div style={{ paddingBottom: "0.5em" }}>
-        <strong>Div-Ope-Suc-Contrato:</strong>
-        <span></span>
+      <Box
+        sx={{
+          fontSize: "h5.fontSize",
+          p: 1,
+          pt: 2,
+        }}
+      >
+        <strong style={{ color: "#37474f" }}>Datos de venta</strong>
+      </Box>
+      <div
+        style={{
+          paddingLeft: "1em",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
+          Div-Ope-Suc-Contrato:
+        </strong>
+        <Item> 02-20-03-4809</Item>
       </div>
-      <div style={{ paddingBottom: "0.5em" }}>
-        <strong>Plan de Venta:</strong>
-        <span></span>
+      <div
+        style={{
+          paddingLeft: "1em",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
+          Plan de venta:
+        </strong>
+        <Item>902</Item>
       </div>
-      <div style={{ paddingBottom: "0.5em" }}>
-        <strong>Valor de pago:</strong>
-        <span></span>
+      <div
+        style={{
+          paddingLeft: "1em",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
+          Valor de pago:
+        </strong>
+        <Item>278.79</Item>
       </div>
-      <div style={{ paddingBottom: "0.5em" }}>
-        <strong>Fecha de venta:</strong>
-        <span></span>
+      <div
+        style={{
+          paddingLeft: "1em",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
+          Fecha de venta:
+        </strong>
+        <Item>17-06-2012</Item>
+      </div>
+      <div
+        style={{
+          paddingLeft: "1em",
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
+          Fecha de primer pago:
+        </strong>
+        <Item>01-08-2012</Item>
       </div>
     </Box>
   );
