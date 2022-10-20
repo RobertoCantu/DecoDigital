@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import rutaRoutes from "./routes/ruta.routes";
-
+import userRoutes from "./routes/user.route";
 const server = new Server();
 
 
@@ -18,6 +18,7 @@ server.app.use(cors({origin: true, credentials: true}));
 
 // Rutas de servicios
 server.app.use('/api/ruta',rutaRoutes);
+server.app.use('/api/user',userRoutes);
 
 
 
