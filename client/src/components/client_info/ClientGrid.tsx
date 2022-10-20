@@ -8,8 +8,10 @@ type Props = {};
 const ClientGrid = (props: Props) => {
   return (
     <div>
-      <ClientInfo />
       <Container>
+        <Grid item xs={12} md={12}>
+          <ClientInfo />
+        </Grid>
         <Grid container spacing={2}>
           <Grid item xs={12} md={7}>
             <ZonaHabitacional />

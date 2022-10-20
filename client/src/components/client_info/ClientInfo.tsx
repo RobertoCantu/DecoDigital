@@ -1,74 +1,105 @@
 import React from "react";
-import { Container, Grid, Box } from "@mui/material";
+import { Container, Box } from "@mui/material";
+import Item from "./Item";
 type Props = {};
 
 const ClientInfo = (props: Props) => {
   return (
-    <Container maxWidth="lg">
-      <Grid
-        item
-        sx={{
-          bgcolor: "#BBDEFB",
-          display: "flex",
-          flexDirection: "row",
-          m: 1,
-          p: 1,
-          width: 1,
-          justifyContent: "center",
-          borderRadius: 1,
-        }}
-      >
-        <Grid xs={4} sx={{ display: "flex", flexDirection: "column", p: 2 }}>
-          <Box sx={{ display: "flex", flexDirection: "row", pr: 4 }}>
-            <div style={{ paddingBottom: "1em" }}>
-              <strong>Nombre: </strong>
-              <span style={{ paddingRight: "1em" }}>
-                José Luis Alvarez Hernández
+    <>
+      <Container maxWidth="lg" sx={{ boxShadow: 3, pb: 3 }}>
+        <Box sx={{ fontSize: "h5.fontSize", p: 1, pt: 2 }}>
+          <strong style={{ color: "#37474f" }}>Información del usuario</strong>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexDirection: "row",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <span style={{ padding: "1em" }}>Nombre: </span>
+            <Item>José Luis Alvarez Hernández</Item>
+          </div>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <span style={{ padding: "1em" }}>Número único de cliente: </span>
+            <Item>22080481</Item>
+          </div>
+        </Box>
+        <Box sx={{ fontSize: "h6.fontSize", p: 1, pt: 2 }}>
+          <strong style={{ color: "#37474f" }}>Dirección</strong>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexDirection: "row",
+          }}
+        >
+          {/* Primer columna */}
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <span
+                style={{ padding: "1em", width: "7em", textAlign: "right" }}
+              >
+                Calle y No:{" "}
               </span>
+              <Item>1 Avenida 2094</Item>
             </div>
-            <div>
-              <strong>Número único de cliente: </strong>
-              <span>22080481</span>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <span
+                style={{ padding: "1em", width: "7em", textAlign: "right" }}
+              >
+                Colonia:{" "}
+              </span>
+              <Item>Santa Fe Nor Poniente</Item>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <span
+                style={{ padding: "1em", width: "7em", textAlign: "right" }}
+              >
+                Ciudad:{" "}
+              </span>
+              <Item>Monterrey</Item>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <span
+                style={{ padding: "1em", width: "7em", textAlign: "right" }}
+              >
+                País:{" "}
+              </span>
+              <Item>México</Item>
             </div>
           </Box>
-          <h3>Dirección</h3>
-          <Grid xs={4} sx={{ display: "flex", flexDirection: "row", p: 1 }}>
-            <Box sx={{ display: "flex", flexDirection: "column", pr: 4 }}>
-              <div style={{ paddingBottom: "1em" }}>
-                <strong>Calle y No: </strong>
-                <span>Avenida 2094</span>
-              </div>
-              <div style={{ paddingBottom: "1em" }}>
-                <strong>Colonia: </strong>
-                <span>Santa Fe Nor Poniente</span>
-              </div>
-              <div style={{ paddingBottom: "1em" }}>
-                <strong>Ciudad:</strong>
-                <span>Monterrey</span>
-              </div>
-              <div style={{ paddingBottom: "1em" }}>
-                <strong>País: </strong>
-                <span>México</span>
-              </div>
-            </Box>
-            <Box sx={{ display: "flex", flexDirection: "column", pl: 4 }}>
-              <div style={{ paddingBottom: "1em" }}>
-                <strong>Entre calles: </strong>
-                <span>Calle 1 y Calle 2</span>
-              </div>
-              <div style={{ paddingBottom: "1em" }}>
-                <strong>Municipio: </strong>
-                <span>Monterrey</span>
-              </div>
-              <div style={{ paddingBottom: "1em" }}>
-                <strong>Estado:</strong>
-                <span>Nuevo León</span>
-              </div>
-            </Box>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Container>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <span
+                style={{ padding: "1em", width: "8em", textAlign: "right" }}
+              >
+                Entre calles:
+              </span>
+              <Item>Calle 1 y Calle 2</Item>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <span
+                style={{ padding: "1em", width: "8em", textAlign: "right" }}
+              >
+                Municipio:{" "}
+              </span>
+              <Item>Monterrey</Item>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <span
+                style={{ padding: "1em", width: "8em", textAlign: "right" }}
+              >
+                Estado:{" "}
+              </span>
+              <Item>Nuevo León</Item>
+            </div>
+          </Box>
+        </Box>
+      </Container>
+    </>
   );
 };
 
