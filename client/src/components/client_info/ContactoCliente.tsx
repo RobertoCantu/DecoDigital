@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Grid, Box } from "@mui/material";
-import Item from "./Item";
+import Item from "../Item";
 
 type Props = {};
 

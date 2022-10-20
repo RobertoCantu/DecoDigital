@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Box } from "@mui/material";
-import Item from "./Item";
+import Item from "../Item";
 type Props = {};
 
 const ClientInfo = (props: Props) => {
