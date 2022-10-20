@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Grid, Box } from "@mui/material";
+import Item from "./Item";
 
 type Props = {};
 
@@ -7,26 +8,45 @@ const ContactoCliente = (props: Props) => {
   return (
     <Box
       sx={{
+        boxShadow: 3,
         display: "flex",
         flexDirection: "column",
-        p: 4,
-        bgcolor: "#BBDEFB",
+        p: 2,
         mt: 3,
         mb: 3,
         borderRadius: 1,
       }}
     >
-      <div style={{ paddingBottom: "0.5em" }}>
-        <strong>Teléfono:</strong>
-        <span>813125659</span>
+      <Box sx={{ fontSize: "h5.fontSize", p: 1, pt: 1 }}>
+        <strong style={{ color: "#37474f" }}>Datos de contacto</strong>
+      </Box>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "7em" }}>Teléfono:</strong>
+        <Item>813125659</Item>
       </div>
-      <div style={{ paddingBottom: "0.5em" }}>
-        <strong>Correo(s):</strong>
-        <span> correo@gmail.com</span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "7em" }}>Correo(s):</strong>
+        <Item> correo@gmail.com</Item>
       </div>
-      <div style={{ paddingBottom: "0.5em" }}>
-        <strong>Redes sociales:</strong>
-        <span></span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <strong style={{ padding: "1em", width: "12em" }}>
+          Redes sociales:
+        </strong>
       </div>
     </Box>
   );
