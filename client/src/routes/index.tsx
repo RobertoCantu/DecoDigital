@@ -14,6 +14,7 @@ import Register from "../pages/authentication/Register";
 import RegisterCode from "../pages/authentication/RegisterCode";
 import RegisterPassword from "../pages/authentication/RegisterPassword";
 import AccountGrid from "../components/client_account/AccountGrid";
+import ProductList from "../pages/Products/ProductList";
 
 // import GuestGuard from '../guards/GuestGuard';
 // import AuthGuard from '../guards/AuthGuard';
@@ -101,6 +102,14 @@ export default function Router() {
       element: (
         <Sidebar>
           <AccountGrid />
+        </Sidebar>
+      ),
+    },
+    {
+      path: "products",
+      element: (
+        <Sidebar>
+          <ProductList />
         </Sidebar>
       ),
     },
