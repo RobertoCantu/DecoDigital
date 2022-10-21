@@ -40,7 +40,7 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
 
   const passwordCrpt = bcrypt.hashSync(password, 10);
   
-  const queryLogin = `SELECT * FROM TecTable.Students WHERE phone = "${phone}" AND password = "${passwordCrpt}"`;
+  const queryLogin = `SELECT * FROM TecTable.clientes WHERE phone = "${phone}" AND password = "${passwordCrpt}"`;
   const options = {
     query: queryLogin,
     location: "US",
