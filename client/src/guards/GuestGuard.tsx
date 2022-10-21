@@ -15,7 +15,7 @@ export default function GuestGuard({ children }: GuestGuardProps) {
   const { isAuthenticated } = useAuth();
   
   if (isAuthenticated) {
-    return <Navigate to={PATH_DASHBOARD.root} />;
+    return <Navigate to={PATH_DASHBOARD.general.products} />;
   }
 
   return <>{children}</>;

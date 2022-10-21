@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Grid,
   Box,
@@ -8,13 +8,33 @@ import {
   Link,
   Button,
   Container,
+  Alert,
+  Stack,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import './RegisterPassword.scss';
+import * as Yup from "yup";
+import { Formik, Form, FormikHelpers } from "formik";
+import eyeFill from '@iconify/icons-eva/eye-fill';
+import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+import { Icon } from '@iconify/react';
 
 const theme = createTheme();
+const api = 'http://localhost:3000/api';
+interface RegisterPasswordProps {
+  password: string;
+  confirmPassword: string;
+  afterSubmit?: string;
+}
+
+const registerPasswordSchema = Yup.object().shape({
+  password: Yup.string().required("Se requiere una contraseña"),
+  confirmPassword: Yup.string().required("Se requiere una contraseña"),
+});
 
 function RegisterPassword() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -26,61 +46,198 @@ function RegisterPassword() {
     });
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+  const onClickShowPassword = () => setShowPassword(!showPassword)
+  const onClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword)
+
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="md" className="container">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <h1>Codigo verificado</h1>
-          <p>Ingrese su nueva contraseña</p>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+    <div>
+      <Formik
+        initialValues={{
+          password: "",
+          confirmPassword: "",
+        }}
+        validationSchema={registerPasswordSchema}
+        onSubmit={async (
+          values: RegisterPasswordProps,
+          { resetForm, setErrors }: FormikHelpers<RegisterPasswordProps>
+        ) => {
+          try {
+            // await login(values.email, values.password);
+            // enqueueSnackbar('¡Bienvenido!', {
+            //   variant: 'success',
+            //   action: (key) => (
+            //     <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+            //       <Icon icon={closeFill} />
+            //     </MIconButton>
+            //   )
+            // });
+
+            if(values.password != values.confirmPassword){
+              setErrors({ confirmPassword: "Las contraseñas no coinciden" });
+              return;
+            }
+            const token = localStorage.getItem('registerToken');
             
-            <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        autoComplete="password"
-                        name="password"
-                        required
-                        fullWidth
-                        id="password"
-                        label="Password"
-                        autoFocus
-                      />
-                    </Grid> 
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="confirm-password"
-                        label="Confirm Password"
-                        name="confirm-password"
-                        autoComplete="password"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    href="/auth/login" // <--- Quitar esto una vez se programe el registro
-                    >Register</Button>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+            const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'x-token': `${token}` },
+              body: JSON.stringify({ password: values.password })
+            };
+
+            await fetch(`${api}/user/register/password`, requestOptions).then(response => response.json()).then(data => {
+              if(data.ok){
+                setSuccess(true);
+                localStorage.removeItem('registerToken');
+                setTimeout(() => {
+                  window.location.href = '/auth/login';
+                }, 1500);
+
+              }else{
+                setFail(true);
+              }
+            });
+
+
+          } catch (error: any) {
+            resetForm();
+            //Falta agregar useRef
+            setErrors({ afterSubmit: error.message });
+          }
+        }}
+      >
+        {({
+          handleChange,
+          values,
+          errors,
+          touched,
+          isSubmitting,
+          setFieldValue,
+        }) => (
+          <Form>
+            <Stack spacing={2}>
+              {errors.afterSubmit && (
+                <Alert severity="error">{errors.afterSubmit}</Alert>
+              )}
+              {success && (
+                <Alert severity="success">Usuario creado con exito</Alert>
+              )}
+              {fail && (
+                <Alert severity="error">Usuario ya registrado</Alert>
+              )}
+              <TextField
+                fullWidth
+                autoComplete="password"
+                type={showPassword ? 'text' : 'password'}
+                label="Contraseña"
+                name="password"
+                value={values.password}
+                inputProps={{ minLength: 8 }}
+                onChange={handleChange}
+                error={Boolean(touched.password && errors.password)}
+                helperText={touched.password && errors.password}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton edge="end" onClick={onClickShowPassword}>
+                        <Icon icon={showPassword ? eyeFill : eyeOffFill} />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <TextField
+                fullWidth
+                autoComplete="confirm-password"
+                type={showConfirmPassword ? "text" : "password"}
+                label="Confirmar Contraseña"
+                name="confirmPassword"
+                value={values.confirmPassword}
+                // onChange check values if equal
+                onChange={handleChange}
+                error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+                helperText={touched.confirmPassword && errors.confirmPassword}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton edge="end" onClick={onClickShowConfirmPassword}>
+                        <Icon icon={showConfirmPassword ? eyeFill : eyeOffFill} />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <LoadingButton
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                loading={isSubmitting}
+              >
+                Iniciar Sesión
+              </LoadingButton>
+            </Stack>
+          </Form>
+        )}
+      </Formik>
+    </div>
+    // <ThemeProvider theme={theme}>
+    //   <Container component="main" maxWidth="md" className="container">
+    //     <CssBaseline />
+    //     <Box
+    //       sx={{
+    //         marginTop: 8,
+    //         display: "flex",
+    //         flexDirection: "column",
+    //         alignItems: "center",
+    //       }}
+    //     >
+    //       <h1>Codigo verificado</h1>
+    //       <p>Ingrese su nueva contraseña</p>
+    //       <Box
+    //         component="form"
+    //         noValidate
+    //         onSubmit={handleSubmit}
+    //         sx={{ mt: 3 }}
+    //       >
+
+    //         <Grid container spacing={2}>
+    //                 <Grid item xs={12}>
+    //                   <TextField
+    //                     autoComplete="password"
+    //                     name="password"
+    //                     required
+    //                     fullWidth
+    //                     id="password"
+    //                     label="Password"
+    //                     autoFocus
+    //                   />
+    //                 </Grid>
+    //                 <Grid item xs={12}>
+    //                   <TextField
+    //                     required
+    //                     fullWidth
+    //                     id="confirm-password"
+    //                     label="Confirm Password"
+    //                     name="confirm-password"
+    //                     autoComplete="password"
+    //                   />
+    //                 </Grid>
+    //               </Grid>
+    //               <Button
+    //                 type="submit"
+    //                 fullWidth
+    //                 variant="contained"
+    //                 sx={{ mt: 3, mb: 2 }}
+    //                 href="/auth/login" // <--- Quitar esto una vez se programe el registro
+    //                 >Register</Button>
+    //       </Box>
+    //     </Box>
+    //   </Container>
+    // </ThemeProvider>
   );
 }
 export default RegisterPassword;

@@ -1,10 +1,10 @@
 // utils
 import axios from '../utils/axios';
 
-export async function login(phone:number,password:string)
+export async function login(phone:string,password:string)
 {
   return new Promise(async (resolve,reject) => {
-    const url = '/users/login';
+    const url = '/api/ruta/login';
 
     try {
       const response =  await axios.post(url, {

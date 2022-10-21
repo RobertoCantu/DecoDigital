@@ -8,12 +8,29 @@ import {
   Link,
   Button,
   Container,
+  Alert,
+  Stack,
 } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import './RegisterCode.scss';
+import "./RegisterCode.scss";
+import * as Yup from "yup";
+import { Formik, Form, FormikHelpers } from "formik";
+import { LoadingButton } from "@mui/lab";
+
 const theme = createTheme();
+const api = window.api;
+interface RegisterCodeProps {
+  code: string;
+  afterSubmit?: string;
+}
+
+const veriFyCodeSchema = Yup.object().shape({
+  code: Yup.string()
+    .min(6, "El codigo debe tener al menos 6 caracteres")
+    .required("El codigo de verfificación es requerido"),
+});
 
 function RegisterCode() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -26,52 +43,65 @@ function RegisterCode() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="md" className="container">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <div className="">
-            <h1>Confirmación enviada</h1>
-            <p>Ingresa el codigo que enviamos a su numero telefonico</p>
-          </div>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="code"
-                  label="Verify Code"
-                  name="code"
-                  autoComplete="code"
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              href="/auth/register/password"
-            >
-              Verify
-            </Button>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+    <div>
+      <Formik
+        initialValues={{
+          code: "",
+        }}
+        validationSchema={veriFyCodeSchema}
+        onSubmit={async (
+          values: RegisterCodeProps,
+          { resetForm, setErrors }: FormikHelpers<RegisterCodeProps>
+        ) => {
+          try {
+          } catch (error: any) {
+            resetForm();
+            //Falta agregar useRef
+            setErrors({ afterSubmit: error.message });
+          }
+        }}
+      >
+        {({
+          handleChange,
+          values,
+          errors,
+          touched,
+          isSubmitting,
+          setFieldValue,
+        }) => (
+          <Form>
+            <Stack spacing={2}>
+              {errors.afterSubmit && (
+                <Alert severity="error">{errors.afterSubmit}</Alert>
+              )}
+
+              <TextField
+                fullWidth
+                autoComplete="code"
+                type="text"
+                label="Codigo de verificación"
+                name="code"
+                value={values.code}
+                inputProps={{ maxLength: 6 }}
+                onChange={handleChange}
+                error={Boolean(touched.code && errors.code)}
+                helperText={touched.code && errors.code}
+              />
+
+              <LoadingButton
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                loading={isSubmitting}
+              >
+                Verificar Codigo
+              </LoadingButton>
+            </Stack>
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 }
 export default RegisterCode;

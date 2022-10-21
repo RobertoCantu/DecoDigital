@@ -3,6 +3,7 @@ import { LoginForm } from '../../components/authentication/login'
 
 // Routing
 import { Link as RouterLink } from 'react-router-dom';
+import { PATH_AUTH } from '../../routes/paths';
 
 // UI 
 import { makeStyles } from '@mui/material/styles';
@@ -24,6 +25,14 @@ const mainContainer:any = {
   alignItems: 'center'
 }
 
+const registerLink:any = {
+  registerLink: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 24
+  }
+}
+
 
 function Login() {
 
@@ -43,6 +52,14 @@ function Login() {
           </Stack>
           <LoginForm/>
         </Card>
+        <div style={registerLink}>
+            <Typography variant="body2">
+              ¿No tienes una cuenta?&nbsp;
+            </Typography>
+            <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
+              Crear una cuenta
+            </Link>
+          </div>
     </Container>
   </div>
   )
