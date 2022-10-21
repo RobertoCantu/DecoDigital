@@ -2,6 +2,7 @@ import React from "react";
 import { RegisterForm } from "../../components/authentication/register";
 // Routing
 import { Link as RouterLink } from "react-router-dom";
+import { PATH_AUTH } from "../../routes/paths";
 
 // UI
 import { makeStyles } from "@mui/material/styles";
@@ -22,6 +23,12 @@ const mainContainer:any = {
   alignItems: 'center'
 }
 
+const loginLink:any = {
+  display: 'flex',
+  alignItems: 'center',
+  marginTop: 24
+}
+
 
 function Register() {
   return (
@@ -40,6 +47,14 @@ function Register() {
         </Stack>
         <RegisterForm />
       </Card>
+      <div style={loginLink}>
+          <Typography  variant="body2">
+            ¿Ya tienes una cuenta? &nbsp;
+          </Typography>
+          <Link underline="none" variant="subtitle2" component={RouterLink} to={PATH_AUTH.login}>
+            Iniciar Sesión
+          </Link>
+        </div>
     </Container>
     </div>
   );
