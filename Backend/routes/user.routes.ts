@@ -64,7 +64,7 @@ userRoutes.post("/register", async (req: Request, res: Response) => {
     });
 
     //insert into table clientes on dataset TecTable
-    const query = `INSERT INTO TecTable.clientes (nuc, phone, password) VALUES ('${nuc}', '${phone}', '${password}')`;
+    const query = `INSERT INTObd_prueba.login_usuario (nuc, phone, password) VALUES ('${nuc}', '${phone}', '${password}')`;
     const options = {
       query: query,
       location: "US",
@@ -125,10 +125,10 @@ userRoutes.post(
     if (nucUser === nuc && telef1 === phone) {
 
       // find nuc and phone in table clientes on dataset TecTable
-      const queryFind = `SELECT nuc, phone FROM TecTable.clientes WHERE nuc = "${nuc}" AND phone = "${phone}"`;
+      const queryFind = `SELECT nuc, phone FROM bd_prueba.login_usuario WHERE nuc = "${nuc}" AND phone = "${phone}"`;
       const optionsFind = {
         query: queryFind,
-        location: "US",
+        location: "US-Central1",
       };
       // Run the query as a job
       const [jobFind] = await bigQueryClient.createQueryJob(optionsFind);
@@ -143,10 +143,10 @@ userRoutes.post(
       }
 
       //insert into table clientes on dataset TecTable if not exist nuc and phone
-      const query = `INSERT INTO TecTable.clientes (nuc, phone, password) VALUES ('${user.nuc}', '${user.phone}', '${user.password}')`;
+      const query = `INSERT INTO bd_prueba.login_usuario (nuc, phone, password) VALUES ('${user.nuc}', '${user.phone}', '${user.password}')`;
       const options = {
         query: query,
-        location: "US",
+        location: "US-Central1",
       };
       // Run the query as a job
       const [job] = await bigQueryClient.createQueryJob(options).catch((err) => {
