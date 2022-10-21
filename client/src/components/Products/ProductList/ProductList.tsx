@@ -9,9 +9,9 @@ import { Container } from "@mui/system";
 import "./ProductList.scss";
 
 function ProductList() {
-  const [products, setProducts] = useState([{ title: "test", contract: 0 }]);
+  //const [products, setProducts] = useState([{ title: "test", contract: 0 }]);
   
-  const product = [
+  const products = [
     { title: "Product 1", contract: 1 },
     { title: "Product 2", contract: 2 },
     { title: "Product 3", contract: 3 },
@@ -30,9 +30,10 @@ function ProductList() {
     { title: "Product 16", contract: 16 },
   ];
 
-  useEffect(() => {
-    setProducts(product);
-  }, [{ title: "test", contract: 0 }]);
+  // useEffect(() => {
+  //   //setProducts(product);
+  // }, [{ title: "test", contract: 0 }]);
+  
   return (
     <>
       <div className="container">

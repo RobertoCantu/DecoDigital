@@ -27,7 +27,7 @@ import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
 
 import "./RegisterForm.scss";
-import { ValueAccessor } from "@ionic/angular/directives/control-value-accessors/value-accessor";
+//import { ValueAccessor } from "@ionic/angular/directives/control-value-accessors/value-accessor";
 import { LoadingButton } from "@mui/lab";
 import { PHONE_REGEX } from "../../../utils/regex";
 

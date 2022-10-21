@@ -11,6 +11,9 @@ import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-eva/close-fill';
 import { MIconButton } from './components/@material-extend';
 
+// context 
+import { AuthProvider } from './contexts/AuthContext';
+
 
 const notistackRef:any = React.createRef();
 const onClickDismiss = (key: any) => () => { 
@@ -33,7 +36,9 @@ root.render(
           </MIconButton>
         )}
       >
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </SnackbarProvider>
     </BrowserRouter>
   </React.StrictMode>

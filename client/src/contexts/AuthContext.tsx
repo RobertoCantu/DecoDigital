@@ -83,6 +83,7 @@ function AuthProvider({children} : {children: ReactNode}){
       const user = window.localStorage.getItem('user');
 
       if(user) {
+        console.log('entrooooo')
         dispatch({
           type: Types.Initial,
           payload: {
@@ -136,18 +137,20 @@ function AuthProvider({children} : {children: ReactNode}){
     initialize();
   }, []);
 
-  const login = async(phone:number, password:string) => {
+  const login = async(phone:string, password:string) => {
     try {
       const response:any = await authLogin(phone,password);
 
-      const { token } = response;
-      const user: any = {
-        "name": response.name,
-        "lastName": response.lastName,
-        "email": response.email,
-        "phone": response.phone,
-        "id": response._id
-      }
+      const { message } = response;
+
+      const { token, user } = message
+      // const user: any = {
+      //   "name": response.name,
+      //   "lastName": response.lastName,
+      //   "email": response.email,
+      //   "phone": response.phone,
+      //   "id": response._id
+      // }
 
       // Set JWT in local storage
       window.localStorage.setItem('accessToken',token);
@@ -168,7 +171,9 @@ function AuthProvider({children} : {children: ReactNode}){
 
     try{
       const response:any = await authRegister(nuc,phone);
-      const { token } = response;
+      const { reponse } = response;
+
+      const token = response.token
       const user: any = {
         "name": response.name,
         "lastName": response.lastName,

@@ -16,6 +16,8 @@ export const PATH_AUTH = {
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   general: {
-    app: path(ROOTS_DASHBOARD, '/app'),
+    products: path(ROOTS_DASHBOARD, '/products'),
+    clientInfo: path(ROOTS_DASHBOARD, '/client_info'),
+    clientAccount: path(ROOTS_DASHBOARD, '/client_account')
   }
 };

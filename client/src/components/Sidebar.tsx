@@ -19,6 +19,13 @@ import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import { AccountBalance, ExitToApp, Inventory } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
+import { useSnackbar } from 'notistack';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+// hooks
+import useAuth from '../hooks/useAuth';
+import useIsMountedRef from "../hooks/useIsMountedRef";
+// routes 
+import { PATH_DASHBOARD } from "../routes/paths";
 
 const drawerWidth = 240;
 
@@ -78,6 +85,28 @@ type Props = {
 export default function Sidebar({ children }: Props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const isMountedRef = useIsMountedRef();
+  const { enqueueSnackbar } = useSnackbar();
+  const [open2, setOpen2] = React.useState(false)
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout?.();
+      if (isMountedRef.current) {
+        navigate('/');
+        handleClose();
+      }
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar('Unable to logout', { variant: 'error' });
+    }
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -137,7 +166,7 @@ export default function Sidebar({ children }: Props) {
         <List>
           {["Catálogo", "Estado de cuenta"].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton href={PATH_DASHBOARD.general.clientAccount}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <Inventory /> : <AccountBalance />}
                 </ListItemIcon>
@@ -150,7 +179,7 @@ export default function Sidebar({ children }: Props) {
         <List>
           {["Cerrar sesión"].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={handleLogout}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <ExitToApp /> : <MailIcon />}
                 </ListItemIcon>

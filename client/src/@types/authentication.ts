@@ -21,7 +21,7 @@ export type AuthContextType = {
   isAuthenticated: boolean;
   isInitialized: boolean;
   user : AuthUser;
-  login: (phone:number, password:string) => Promise<void>
+  login: (phone:string, password:string) => Promise<void>
   register: (nuc:string, phone:number) => Promise<void>;
   logout: () => Promise<void>;
 };

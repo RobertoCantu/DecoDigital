@@ -16,8 +16,8 @@ import RegisterPassword from "../pages/authentication/RegisterPassword";
 import AccountGrid from "../components/client_account/AccountGrid";
 import ProductList from "../pages/Products/ProductList";
 
-// import GuestGuard from '../guards/GuestGuard';
-// import AuthGuard from '../guards/AuthGuard';
+import GuestGuard from '../guards/GuestGuard';
+import AuthGuard from '../guards/AuthGuard';
 // import LoadingScreen from '../components/LoadingScreen';
 
 // const Loadable = (Component: React.ElementType) => (props: any) => {
@@ -54,17 +54,17 @@ export default function Router() {
         {
           path: "login",
           element: (
-            //<GuestGuard>
-            <Login />
-            //</GuestGuard>
+            <GuestGuard>
+              <Login />
+            </GuestGuard>
           ),
         },
         {
           path: "register",
           element: (
-            //<GuestGuard>
-            <Register />
-            //</GuestGuard>
+            <GuestGuard>
+              <Register />
+            </GuestGuard>
           ),
         },
         {
@@ -90,29 +90,42 @@ export default function Router() {
       ],
     },
     {
-      path: "client_info",
-      element: (
-        <Sidebar>
-          <ClientGrid />,
-        </Sidebar>
-      ),
+      path: 'dashboard',
+      children: [
+        {
+          path: "client_info",
+          element: (
+            <AuthGuard>
+              <Sidebar>
+                <ClientGrid />
+              </Sidebar>
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "client_account",
+          element: (
+            <AuthGuard>
+              <Sidebar>
+               <AccountGrid />
+             </Sidebar>
+            </AuthGuard>
+          ),
+        },
+        {
+          path: "products",
+          element: (
+            <AuthGuard>
+              <Sidebar>
+                <ProductList />
+              </Sidebar>
+            </AuthGuard>
+          ),
+        },
+      ]
     },
-    {
-      path: "client_account",
-      element: (
-        <Sidebar>
-          <AccountGrid />
-        </Sidebar>
-      ),
-    },
-    {
-      path: "products",
-      element: (
-        <Sidebar>
-          <ProductList />
-        </Sidebar>
-      ),
-    },
+    { path: '/', element: <Navigate to="/auth/login" replace /> }
+    
     // // Dashboard Routes
     // {
     //   path: 'dashboard',
