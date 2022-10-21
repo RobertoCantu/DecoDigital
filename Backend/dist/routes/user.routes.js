@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //Plantilla
 const express_1 = require("express");
 // Imports the Google Cloud client library
-const { BigQuery } = require('@google-cloud/bigquery');
+const { BigQuery } = require("@google-cloud/bigquery");
 require("dotenv").config();
-const firebase = require('../firebase');
-const { google } = require('googleapis');
+const firebase = require("../firebase");
+const { google } = require("googleapis");
 //Testing
 const Students = google.Students;
 const userRoutes = (0, express_1.Router)();
@@ -35,7 +35,7 @@ userRoutes.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, fun
     const userQuery = `SELECT identificador, nuc, telef1 FROM \`bd_prueba.cliente_unico\` WHERE nuc = "${nuc}" AND telef1 = "${phone}"`;
     const optionsUser = {
         query: userQuery,
-        location: 'US-Central1',
+        location: "US-Central1",
     };
     // Run the query as a job
     const [jobUser] = yield bigQueryClient.createQueryJob(optionsUser);
@@ -43,22 +43,18 @@ userRoutes.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, fun
     const [rowsUser] = yield jobUser.getQueryResults();
     const { identificador, telef1 } = rowsUser[0];
     const nucUser = rowsUser[0].nuc;
-    console.log(nucUser, nuc);
-    console.log(telef1, phone);
     if (nucUser === nuc && telef1 === phone) {
         //insert into table clientes on dataset TecTable
         const query = `INSERT INTO TecTable.clientes (nuc, phone, password) VALUES ('${nuc}', '${phone}', '${password}')`;
         const options = {
             query: query,
-            location: 'US',
+            location: "US",
         };
         // Run the query as a job
         const [job] = yield bigQueryClient.createQueryJob(options);
         console.log(`Job ${job.id} started.`);
         // Wait for the query to finish
         const [rows] = yield job.getQueryResults();
-        console.log('Rows:');
-        rows.forEach((row) => console.log(row));
         res.json({
             ok: true,
             message: "Usuario creado",
@@ -67,7 +63,7 @@ userRoutes.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, fun
     else {
         return res.json({
             ok: false,
-            message: "Usuario no encontrado"
+            message: "Usuario no encontrado",
         });
     }
 }));

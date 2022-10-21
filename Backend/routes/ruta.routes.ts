@@ -3,10 +3,10 @@ import { Router, Request, Response } from "express";
 import Token from "../classes/token";
 import { verifyToken } from "../middlewares/authentication";
 // Imports the Google Cloud client library
-const {BigQuery} = require('@google-cloud/bigquery');
+const { BigQuery } = require("@google-cloud/bigquery");
 require("dotenv").config();
 
-const {google} = require('googleapis');
+const { google } = require("googleapis");
 
 //Testing
 const Students = google.Students;
@@ -22,15 +22,51 @@ rutaRoutes.get("/", (req: any, res: Response) => {
     const bigqueryClient = new BigQuery();
 
     // Create the dataset
-    const [dataset] = await bigqueryClient.createDataset('TecTable');
+    const [dataset] = await bigqueryClient.createDataset("TecTable");
     console.log(`Dataset ${dataset.id} created.`);
   }
   createDataset();
-  
+
   res.json({
     ok: true,
     message: "lol",
   });
+});
+
+rutaRoutes.post("/login", async (req: any, res: Response) => {
+  const { phone, password } = req.body;
+  const bigQueryClient = new BigQuery();
+  //get nuc and phone from bd_prueba dataset and cliente_unico table
+  const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.telefono, C.identificador
+    FROM \`driven-rig-363116.bd_prueba.login_usuario\` L 
+    INNER JOIN \`driven-rig-363116.bd_prueba.cliente_unico\` C on L.nuc = C.nuc
+    WHERE L.password = "${password}" AND L.telefono = ${phone}`;
+
+  const optionsUser = {
+    query: userQuery,
+    location: "US-Central1",
+  };
+  // Run the query as a job
+  const [jobUser] = await bigQueryClient.createQueryJob(optionsUser);
+  // Wait for the query to finish
+  const [rowsUser] = await jobUser.getQueryResults();
+  // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
+  const user = rowsUser[0];
+  console.log(user);
+  if (user) {
+    const userToken = Token.getJwtToken(user);
+    const response = { user: user, token: userToken };
+
+    return res.json({
+      ok: true,
+      message: response,
+    });
+  } else {
+    return res.json({
+      ok: false,
+      message: "Usuario no encontrado",
+    });
+  }
 });
 
 rutaRoutes.post("/", (req: Request, res: Response) => {
