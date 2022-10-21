@@ -33,7 +33,6 @@ rutaRoutes.get("/", (req, res) => {
             const bigqueryClient = new BigQuery();
             // Create the dataset
             const [dataset] = yield bigqueryClient.createDataset("TecTable");
-            console.log(`Dataset ${dataset.id} created.`);
         });
     }
     createDataset();
@@ -46,7 +45,7 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const { phone, password } = req.body;
     const bigQueryClient = new BigQuery();
     const passwordCrpt = bcrypt_1.default.hashSync(password, 10);
-    const queryLogin = `SELECT * FROM bd_prueba.login_usuario WHERE phone = "${phone}" AND password = "${passwordCrpt}"`;
+    const queryLogin = `SELECT * FROM bd_prueba.login_usuario WHERE phone = "${phone}"`;
     const options = {
         query: queryLogin,
         location: "US-Central1",
@@ -60,11 +59,19 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
             message: "Usuario no encontrado"
         });
     }
+    const passwordNew = rowsLogin[0].password;
+    // compare passwords
+    if (!bcrypt_1.default.compareSync(password, passwordNew)) {
+        return res.status(400).json({
+            ok: false,
+            message: "Contraseña incorrecta",
+        });
+    }
     //get nuc and phone from bd_prueba dataset and cliente_unico table
-    const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.phone, C.identificador
+    const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.telefono, C.identificador
     FROM \`driven-rig-363116.bd_prueba.login_usuario\` L 
     INNER JOIN \`driven-rig-363116.bd_prueba.cliente_unico\` C on L.nuc = C.nuc
-    WHERE L.password = "${passwordCrpt}" AND L.phone = ${phone}`;
+    WHERE L.password = "${passwordCrpt}" AND L.telefono = ${phone}`;
     const optionsUser = {
         query: userQuery,
         location: "US-Central1",
@@ -75,7 +82,6 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const [rowsUser] = yield jobUser.getQueryResults();
     // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
     const user = rowsUser[0];
-    console.log(user);
     if (user) {
         const userToken = token_1.default.getJwtToken(user);
         const response = { user: user, token: userToken };

@@ -24,7 +24,6 @@ rutaRoutes.get("/", (req: any, res: Response) => {
 
     // Create the dataset
     const [dataset] = await bigqueryClient.createDataset("TecTable");
-    console.log(`Dataset ${dataset.id} created.`);
   }
   createDataset();
 
@@ -40,7 +39,7 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
 
   const passwordCrpt = bcrypt.hashSync(password, 10);
   
-  const queryLogin = `SELECT * FROM bd_prueba.login_usuario WHERE phone = "${phone}" AND password = "${passwordCrpt}"`;
+  const queryLogin = `SELECT * FROM bd_prueba.login_usuario WHERE phone = "${phone}"`;
   const options = {
     query: queryLogin,
     location: "US-Central1",
@@ -57,8 +56,9 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
     });
   }
 
-  const { nuc, phoneNew, passwordNew } = rowsLogin[0];
-
+  const passwordNew = rowsLogin[0].password;
+  
+  
   // compare passwords
   if (!bcrypt.compareSync(password, passwordNew)) {
     return res.status(400).json({
@@ -84,7 +84,6 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
   const [rowsUser] = await jobUser.getQueryResults();
   // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
   const user = rowsUser[0];
-  console.log(user);
   
   if (user) {
     const userToken = Token.getJwtToken(user);
