@@ -18,6 +18,7 @@ import "./RegisterCode.scss";
 import * as Yup from "yup";
 import { Formik, Form, FormikHelpers } from "formik";
 import { LoadingButton } from "@mui/lab";
+
 const theme = createTheme();
 
 interface RegisterCodeProps {
@@ -53,15 +54,6 @@ function RegisterCode() {
           { resetForm, setErrors }: FormikHelpers<RegisterCodeProps>
         ) => {
           try {
-            // await login(values.email, values.password);
-            // enqueueSnackbar('¡Bienvenido!', {
-            //   variant: 'success',
-            //   action: (key) => (
-            //     <MIconButton size="small" onClick={() => closeSnackbar(key)}>
-            //       <Icon icon={closeFill} />
-            //     </MIconButton>
-            //   )
-            // });
           } catch (error: any) {
             resetForm();
             //Falta agregar useRef
