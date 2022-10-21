@@ -46,10 +46,10 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const { phone, password } = req.body;
     const bigQueryClient = new BigQuery();
     const passwordCrpt = bcrypt_1.default.hashSync(password, 10);
-    const queryLogin = `SELECT * FROM TecTable.Students WHERE phone = ${phone} AND password = ${passwordCrpt}`;
+    const queryLogin = `SELECT * FROM bd_prueba.login_usuario WHERE phone = "${phone}" AND password = "${passwordCrpt}"`;
     const options = {
         query: queryLogin,
-        location: "US",
+        location: "US-Central1",
     };
     // Runs the query
     const [jobLogin] = yield bigQueryClient.createQueryJob(options);
@@ -61,10 +61,10 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
     }
     //get nuc and phone from bd_prueba dataset and cliente_unico table
-    const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.telefono, C.identificador
+    const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.phone, C.identificador
     FROM \`driven-rig-363116.bd_prueba.login_usuario\` L 
     INNER JOIN \`driven-rig-363116.bd_prueba.cliente_unico\` C on L.nuc = C.nuc
-    WHERE L.password = "${passwordCrpt}" AND L.telefono = ${phone}`;
+    WHERE L.password = "${passwordCrpt}" AND L.phone = ${phone}`;
     const optionsUser = {
         query: userQuery,
         location: "US-Central1",

@@ -95,31 +95,31 @@ export default function Router() {
         {
           path: "client_info",
           element: (
-            <AuthGuard>
+            //<AuthGuard>
               <Sidebar>
                 <ClientGrid />
               </Sidebar>
-            </AuthGuard>
+            //</AuthGuard>
           ),
         },
         {
           path: "client_account",
           element: (
-            <AuthGuard>
+            //<AuthGuard>
               <Sidebar>
                <AccountGrid />
              </Sidebar>
-            </AuthGuard>
+            //</AuthGuard>
           ),
         },
         {
           path: "products",
           element: (
-            <AuthGuard>
+            //<AuthGuard>
               <Sidebar>
                 <ProductList />
               </Sidebar>
-            </AuthGuard>
+            //</AuthGuard>
           ),
         },
       ]

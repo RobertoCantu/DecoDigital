@@ -58,10 +58,10 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
   }
 
   //get nuc and phone from bd_prueba dataset and cliente_unico table
-  const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.telefono, C.identificador
+  const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.phone, C.identificador
     FROM \`driven-rig-363116.bd_prueba.login_usuario\` L 
     INNER JOIN \`driven-rig-363116.bd_prueba.cliente_unico\` C on L.nuc = C.nuc
-    WHERE L.password = "${passwordCrpt}" AND L.telefono = ${phone}`;
+    WHERE L.password = "${passwordCrpt}" AND L.phone = ${phone}`;
 
   const optionsUser = {
     query: userQuery,
