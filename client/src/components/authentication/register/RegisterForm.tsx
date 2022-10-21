@@ -28,14 +28,14 @@ import eyeFill from "@iconify/icons-eva/eye-fill";
 import eyeOffFill from "@iconify/icons-eva/eye-off-fill";
 
 import "./RegisterForm.scss";
-import { ValueAccessor } from "@ionic/angular/directives/control-value-accessors/value-accessor";
 import { LoadingButton } from "@mui/lab";
 import { PHONE_REGEX } from "../../../utils/regex";
 import {RegisterCode} from '../../authentication/registerCode'
 import {signInWithPhoneNumber, RecaptchaVerifier} from 'firebase/auth';
 import {authentication}  from "../../../firebase-config";
-const theme = createTheme();
 
+const theme = createTheme();
+const api = window.api;
 // Interfaces
 interface InitialValuesNUC {
   nuc: string;
@@ -125,9 +125,25 @@ function RegisterForm() {
                   // });
                   // go to next page
 
-                  window.recaptchaVerifier = "HOLA"
-                    navigate("/auth/register/password", { replace: true });
+                    // print values 
+                    // navigate("/auth/register/password", { replace: true });
                   
+
+                    //fetch user to register
+                    const requestOptions = {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ nuc: values.nuc, phone: values.phone })                      
+                    };
+
+                    await fetch('http://localhost:3000/api/user/register', requestOptions).then(response => response.json()).then(data => {
+                      if(!data.ok){
+                        setErrors({ afterSubmit: data.message });
+                      }else{
+                        localStorage.setItem('registerToken', data.token);
+                        navigate("/auth/register/password");
+                      }
+                    });
 
                 } catch (error: any) {
                   resetForm();
@@ -166,6 +182,7 @@ function RegisterForm() {
                       label="Celular"
                       name="phone"
                       value={values.phone}
+                      inputProps={{ maxLength: 10 }}
                       onChange={(e) => {
                         e.preventDefault();
                         const value = e.target.value.replace(PHONE_REGEX, "");
@@ -251,6 +268,7 @@ function RegisterForm() {
                       label="Celular"
                       name="phone"
                       value={values.phone}
+                      inputProps={{ maxLength: 10 }}
                       onChange={(e) => {
                         e.preventDefault();
                         const value = e.target.value.replace(PHONE_REGEX, "");

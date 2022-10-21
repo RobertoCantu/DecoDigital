@@ -24,7 +24,7 @@ import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 import { Icon } from '@iconify/react';
 
 const theme = createTheme();
-
+const api = 'http://localhost:3000/api';
 interface RegisterPasswordProps {
   password: string;
   confirmPassword: string;
@@ -46,9 +46,10 @@ function RegisterPassword() {
     });
   };
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
   const onClickShowPassword = () => setShowPassword(!showPassword)
   const onClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword)
 
@@ -74,6 +75,33 @@ function RegisterPassword() {
             //     </MIconButton>
             //   )
             // });
+
+            if(values.password != values.confirmPassword){
+              setErrors({ confirmPassword: "Las contraseñas no coinciden" });
+              return;
+            }
+            const token = localStorage.getItem('registerToken');
+            
+            const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'x-token': `${token}` },
+              body: JSON.stringify({ password: values.password })
+            };
+
+            await fetch(`${api}/user/register/password`, requestOptions).then(response => response.json()).then(data => {
+              if(data.ok){
+                setSuccess(true);
+                localStorage.removeItem('registerToken');
+                setTimeout(() => {
+                  window.location.href = '/login';
+                }, 1500);
+
+              }else{
+                setFail(true);
+              }
+            });
+
+
           } catch (error: any) {
             resetForm();
             //Falta agregar useRef
@@ -93,6 +121,12 @@ function RegisterPassword() {
             <Stack spacing={2}>
               {errors.afterSubmit && (
                 <Alert severity="error">{errors.afterSubmit}</Alert>
+              )}
+              {success && (
+                <Alert severity="success">Usuario creado con exito</Alert>
+              )}
+              {fail && (
+                <Alert severity="error">Usuario ya registrado</Alert>
               )}
               <TextField
                 fullWidth
@@ -122,6 +156,7 @@ function RegisterPassword() {
                 label="Confirmar Contraseña"
                 name="confirmPassword"
                 value={values.confirmPassword}
+                // onChange check values if equal
                 onChange={handleChange}
                 error={Boolean(touched.confirmPassword && errors.confirmPassword)}
                 helperText={touched.confirmPassword && errors.confirmPassword}

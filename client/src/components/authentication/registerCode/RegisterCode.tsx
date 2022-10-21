@@ -20,7 +20,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { LoadingButton } from "@mui/lab";
 
 const theme = createTheme();
-
+const api = window.api;
 interface RegisterCodeProps {
   code: string;
   afterSubmit?: string;
