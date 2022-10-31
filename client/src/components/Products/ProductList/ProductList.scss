@@ -1,28 +1,28 @@
 .container {
-  width: 80vw !important;
-  position: absolute;
-  top: -5rem;
-  left: 0;
-  box-shadow: none;
-  border-radius: 0;
+	// width: 80vw !important;
+	// position: absolute;
+	// top: -5rem;
+	// left: 0;
+	// box-shadow: none;
+	// border-radius: 0;
 
-  .products {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5rem;
-    padding: 2rem;
+	.products {
+		flex: 1;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 5rem;
+		padding: 2rem;
 
-    .product {
-        box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
-        border-radius: 15px;
-        background-color: #fefefe;
-      .buttons {
-        justify-content: space-evenly;
-      }
-    }
-  }
+		.product {
+			box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+			border-radius: 15px;
+			background-color: #fefefe;
+			.buttons {
+				justify-content: space-evenly;
+			}
+		}
+	}
 }

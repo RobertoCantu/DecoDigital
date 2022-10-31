@@ -36,7 +36,7 @@ function ProductList() {
 
 	return (
 		<>
-			<div>
+			<div className="container">
 				<div className="products">
 					{products?.map((product, index) => (
 						<Card

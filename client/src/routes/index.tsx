@@ -112,20 +112,6 @@ export default function Router() {
 			],
 		},
 		{ path: "/", element: <Navigate to="/auth/login" replace /> },
-
-		// // Dashboard Routes
-		// {
-		//   path: 'dashboard',
-		//   element: (
-		//     <AuthGuard>
-		//       <DashboardLayout />
-		//     </AuthGuard>
-		//   ),
-		//   children: [
-		//     { path: '/dashboard', element: <HomePage /> },
-		//   ]
-		// },
-		// { path: '/', element: <Navigate to="/auth/login" replace /> }
 	]);
 }
 

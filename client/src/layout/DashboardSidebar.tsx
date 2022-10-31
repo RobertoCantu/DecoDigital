@@ -18,6 +18,12 @@ import { Avatar } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import { PATH_DASHBOARD } from "../routes/paths";
+import { useSnackbar } from "notistack";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+
+// hooks
+import useAuth from "../hooks/useAuth";
+import useIsMountedRef from "../hooks/useIsMountedRef";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
@@ -32,6 +38,24 @@ const drawerWidth = 240;
 
 function DashboardSidebar({ open, handleSidebarClose }: any) {
 	const theme = useTheme();
+	const navigate = useNavigate();
+
+	const { user, logout } = useAuth();
+	const isMountedRef = useIsMountedRef();
+	const { enqueueSnackbar } = useSnackbar();
+
+	// Functions
+	const handleLogout = async () => {
+		try {
+			await logout?.();
+			if (isMountedRef.current) {
+				navigate("/");
+			}
+		} catch (error) {
+			console.error(error);
+			enqueueSnackbar("Unable to logout", { variant: "error" });
+		}
+	};
 
 	return (
 		<Drawer
@@ -78,7 +102,7 @@ function DashboardSidebar({ open, handleSidebarClose }: any) {
 			<List>
 				{["Cerrar sesión"].map((text, index) => (
 					<ListItem key={text} disablePadding>
-						<ListItemButton onClick={handleSidebarClose}>
+						<ListItemButton onClick={handleLogout}>
 							<ListItemIcon>
 								{index % 2 === 0 ? <ExitToApp /> : <MailIcon />}
 							</ListItemIcon>
