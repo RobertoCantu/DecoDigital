@@ -1,14 +1,14 @@
 import { Suspense, lazy } from "react";
 import {
-  Navigate,
-  useRoutes,
-  useLocation,
-  useNavigate,
+	Navigate,
+	useRoutes,
+	useLocation,
+	useNavigate,
 } from "react-router-dom";
-//import DashboardLayout from '../layouts/dashboard';
+import DashboardLayout from "../layout/";
 import Login from "../pages/authentication/Login";
 import ClientGrid from "../components/client_info/ClientGrid";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../layout/Sidebar";
 //import Logout from '../components/authentication/login/Logout';
 import Register from "../pages/authentication/Register";
 import RegisterCode from "../pages/authentication/RegisterCode";
@@ -16,8 +16,8 @@ import RegisterPassword from "../pages/authentication/RegisterPassword";
 import AccountGrid from "../components/client_account/AccountGrid";
 import ProductList from "../pages/Products/ProductList";
 
-import GuestGuard from '../guards/GuestGuard';
-import AuthGuard from '../guards/AuthGuard';
+import GuestGuard from "../guards/GuestGuard";
+import AuthGuard from "../guards/AuthGuard";
 // import LoadingScreen from '../components/LoadingScreen';
 
 // const Loadable = (Component: React.ElementType) => (props: any) => {
@@ -47,99 +47,86 @@ import AuthGuard from '../guards/AuthGuard';
 // };
 
 export default function Router() {
-  return useRoutes([
-    {
-      path: "auth",
-      children: [
-        {
-          path: "login",
-          element: (
-            <GuestGuard>
-              <Login />
-            </GuestGuard>
-          ),
-        },
-        {
-          path: "register",
-          element: (
-            <GuestGuard>
-              <Register />
-            </GuestGuard>
-          ),
-        },
-        {
-          path: "register/code",
-          element: (
-            //<GuestGuard>
-            <RegisterCode />
-            //</GuestGuard>
-          ),
-        },
-        {
-          path: "register/password",
-          element: (
-            //<GuestGuard>
-            <RegisterPassword />
-            //</GuestGuard>
-          ),
-        },
-        // {
-        //   path: 'logout',
-        //   element: <Logout/>
-        // },
-      ],
-    },
-    {
-      path: 'dashboard',
-      children: [
-        {
-          path: "client_info",
-          element: (
-            //<AuthGuard>
-              <Sidebar>
-                <ClientGrid />
-              </Sidebar>
-            //</AuthGuard>
-          ),
-        },
-        {
-          path: "client_account",
-          element: (
-            //<AuthGuard>
-              <Sidebar>
-               <AccountGrid />
-             </Sidebar>
-            //</AuthGuard>
-          ),
-        },
-        {
-          path: "products",
-          element: (
-            //<AuthGuard>
-              <Sidebar>
-                <ProductList />
-              </Sidebar>
-            //</AuthGuard>
-          ),
-        },
-      ]
-    },
-    { path: '/', element: <Navigate to="/auth/login" replace /> }
-    
-    // // Dashboard Routes
-    // {
-    //   path: 'dashboard',
-    //   element: (
-    //     <AuthGuard>
-    //       <DashboardLayout />
-    //     </AuthGuard>
-    //   ),
-    //   children: [
-    //     { path: '/dashboard', element: <HomePage /> },
-    //   ]
-    // },
-    // { path: '/', element: <Navigate to="/auth/login" replace /> }
-  ]);
+	return useRoutes([
+		{
+			path: "auth",
+			children: [
+				{
+					path: "login",
+					element: (
+						<GuestGuard>
+							<Login />
+						</GuestGuard>
+					),
+				},
+				{
+					path: "register",
+					element: (
+						<GuestGuard>
+							<Register />
+						</GuestGuard>
+					),
+				},
+				{
+					path: "register/code",
+					element: (
+						//<GuestGuard>
+						<RegisterCode />
+						//</GuestGuard>
+					),
+				},
+				{
+					path: "register/password",
+					element: (
+						//<GuestGuard>
+						<RegisterPassword />
+						//</GuestGuard>
+					),
+				},
+				// {
+				//   path: 'logout',
+				//   element: <Logout/>
+				// },
+			],
+		},
+		{
+			path: "dashboard",
+			element: (
+				// <AuthGuard>
+				<DashboardLayout />
+				// </AuthGuard>
+			),
+			children: [
+				{
+					path: "client_info",
+					element: <ClientGrid />,
+				},
+				{
+					path: "client_account",
+					element: <AccountGrid />,
+				},
+				{
+					path: "products",
+					element: <ProductList />,
+				},
+			],
+		},
+		{ path: "/", element: <Navigate to="/auth/login" replace /> },
+
+		// // Dashboard Routes
+		// {
+		//   path: 'dashboard',
+		//   element: (
+		//     <AuthGuard>
+		//       <DashboardLayout />
+		//     </AuthGuard>
+		//   ),
+		//   children: [
+		//     { path: '/dashboard', element: <HomePage /> },
+		//   ]
+		// },
+		// { path: '/', element: <Navigate to="/auth/login" replace /> }
+	]);
 }
 
 // // Authentication
