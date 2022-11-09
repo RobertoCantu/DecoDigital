@@ -114,15 +114,18 @@ function RegisterForm() {
                 { resetForm, setErrors }: FormikHelpers<InitialValuesNUC>
               ) => {
                 try {
-                  // generateRecaptcha();
-                  // let appVerifier = window.recaptchaVerifier;
-                  // signInWithPhoneNumber(authentication, '+526563529786', appVerifier).then((confirmationResult) => {
-                  //   window.confirmationResult = confirmationResult;
-                  //   console.log("Si se pudó",confirmationResult);
-                  //   navigate("/auth/register/code", { replace: true });
-                  // }).catch((error) => {
-                  //   console.log(error);
-                  // });
+                  generateRecaptcha();
+                  let appVerifier = window.recaptchaVerifier;
+                  signInWithPhoneNumber(authentication, '+528113231175', appVerifier).then((confirmationResult) => {
+                    window.confirmationResult = confirmationResult;
+
+                  
+
+                    console.log("Si se pudó",confirmationResult);
+                    navigate("/auth/register/code", { replace: true });
+                  }).catch((error) => {
+                    console.log(error);
+                  });
                   // go to next page
 
                     // print values 
@@ -130,20 +133,20 @@ function RegisterForm() {
                   
 
                     //fetch user to register
-                    const requestOptions = {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ nuc: values.nuc, phone: values.phone })                      
-                    };
+                    // const requestOptions = {
+                    //   method: 'POST',
+                    //   headers: { 'Content-Type': 'application/json' },
+                    //   body: JSON.stringify({ nuc: values.nuc, phone: values.phone })                      
+                    // };
 
-                    await fetch('http://localhost:3000/api/user/register', requestOptions).then(response => response.json()).then(data => {
-                      if(!data.ok){
-                        setErrors({ afterSubmit: data.message });
-                      }else{
-                        localStorage.setItem('registerToken', data.token);
-                        navigate("/auth/register/password");
-                      }
-                    });
+                    // await fetch('http://localhost:3000/api/user/register', requestOptions).then(response => response.json()).then(data => {
+                    //   if(!data.ok){
+                    //     setErrors({ afterSubmit: data.message });
+                    //   }else{
+                    //     localStorage.setItem('registerToken', data.token);
+                    //     navigate("/auth/register/password");
+                    //   }
+                    // });
 
                 } catch (error: any) {
                   resetForm();
@@ -295,174 +298,8 @@ function RegisterForm() {
         <div id="recaptcha-container"></div>
       </div>
     </>
-
-    // <ThemeProvider theme={theme}>
-    //   <Container component="main" maxWidth="xl" className="container">
-    //     <div className="app__register-head">
-    //       <h1>Deco Digital</h1>
-    //       <h2>Crear Cuenta Nueva</h2>
-    //     </div>
-    //     <CssBaseline />
-    //     <Box
-    //       sx={{
-    //         marginTop: 0,
-    //         display: "flex",
-    //         flexDirection: "column",
-    //         alignItems: "center",
-    //       }}
-    //     >
-    //       <Box
-    //         component="form"
-    //         noValidate
-    //         onSubmit={handleSubmit}
-    //         sx={{ mt: 3 }}
-    //       >
-    //         <Box sx={{ width: "100%", typography: "body1" }}>
-    //           <TabContext value={value}>
-    //             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-    //               <TabList
-    //                 onChange={handleChange}
-    //                 aria-label="lab API tabs example"
-    //               >
-    //                 <Tab label="NUC" value="1" />
-    //                 <Tab label="Contract #" value="2" />
-    //               </TabList>
-    //             </Box>
-
-    //             {/* Tabs  */}
-    //             <TabPanel value="1">
-    //               <Grid container spacing={5}>
-    //                 <Grid item xs={12} sm={6}>
-    //                   <TextField
-    //                     autoComplete="nuc"
-    //                     name="nuc"
-    //                     required
-    //                     fullWidth
-    //                     id="firstName"
-    //                     label="NUC"
-    //                     autoFocus
-    //                     className="input"
-    //                   />
-    //                 </Grid>
-    //                 <Grid item xs={12} sm={6}>
-    //                   <TextField
-    //                     required
-    //                     fullWidth
-    //                     id="telephone"
-    //                     label="Telephone"
-    //                     name="telephone"
-    //                     autoComplete="telephone"
-    //                     className="input"
-    //                   />
-    //                 </Grid>
-    //               </Grid>
-    //               <Button
-    //                 type="submit"
-    //                 fullWidth
-    //                 variant="contained"
-    //                 sx={{ mt: 3, mb: 2 }}
-    //                 href="/auth/register/code" // <--- Quitar esto una vez se programe el registro
-    //               >
-    //                 Sign Up
-    //               </Button>
-    //             </TabPanel>
-
-    //             {/* By contract number ------------------- */}
-    //             <TabPanel value="2">
-    //               {" "}
-    //               <Grid container spacing={5}>
-    //                 <Grid item xs={12} sm={6}>
-    //                   <TextField
-    //                     autoComplete="given-name"
-    //                     name="contract"
-    //                     required
-    //                     fullWidth
-    //                     id="contract"
-    //                     label="Contract #"
-    //                     autoFocus
-    //                   />
-    //                 </Grid>
-    //                 <Grid item xs={12} sm={6}>
-    //                   <TextField
-    //                     required
-    //                     fullWidth
-    //                     id="city"
-    //                     label="Municipio"
-    //                     name="city"
-    //                     autoComplete="family-name"
-    //                   />
-    //                 </Grid>
-    //                 <Grid item xs={12}>
-    //                   <TextField
-    //                     required
-    //                     fullWidth
-    //                     id="telephone"
-    //                     label="Telephone"
-    //                     name="telephone"
-    //                     autoComplete="telephone"
-    //                   />
-    //                 </Grid>
-    //               </Grid>
-    //               <Button
-    //                 type="submit"
-    //                 fullWidth
-    //                 variant="contained"
-    //                 sx={{ mt: 3, mb: 2 }}
-    //                 href="/auth/register/code" // <--- Quitar esto una vez se programe el registro
-    //               >
-    //                 Sign Up
-    //               </Button>
-    //             </TabPanel>
-    //           </TabContext>
-    //         </Box>
-
-    //         <Grid
-    //           container
-    //           justifyContent="flex-end"
-    //           className="app__register-footer"
-    //         >
-    //           <Grid item>
-    //             <Link href="/auth/login" variant="body2">
-    //               Already have an account? Sign in
-    //             </Link>
-    //           </Grid>
-    //         </Grid>
-    //       </Box>
-    //     </Box>
-    //   </Container>
-    // </ThemeProvider>
   );
 }
 export default RegisterForm;
 
-// import * as React from 'react';
-// import Box from '@mui/material/Box';
-// import Tab from '@mui/material/Tab';
-// import TabContext from '@mui/lab/TabContext';
-// import TabList from '@mui/lab/TabList';
-// import TabPanel from '@mui/lab/TabPanel';
 
-// export default function LabTabs() {
-// const [value, setValue] = React.useState('1');
-
-// const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-//   setValue(newValue);
-// };
-
-//   return (
-//     <Box sx={{ width: '100%', typography: 'body1' }}>
-//       <TabContext value={value}>
-//         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-//           <TabList onChange={handleChange} aria-label="lab API tabs example">
-//             <Tab label="Item One" value="1" />
-//             <Tab label="Item Two" value="2" />
-//             <Tab label="Item Three" value="3" />
-//           </TabList>
-//         </Box>
-//         <TabPanel value="1">Item One</TabPanel>
-//         <TabPanel value="2">Item Two</TabPanel>
-//         <TabPanel value="3">Item Three</TabPanel>
-//       </TabContext>
-//     </Box>
-//   );
-// }
