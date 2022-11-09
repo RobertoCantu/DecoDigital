@@ -184,60 +184,6 @@ function RegisterPassword() {
         )}
       </Formik>
     </div>
-    // <ThemeProvider theme={theme}>
-    //   <Container component="main" maxWidth="md" className="container">
-    //     <CssBaseline />
-    //     <Box
-    //       sx={{
-    //         marginTop: 8,
-    //         display: "flex",
-    //         flexDirection: "column",
-    //         alignItems: "center",
-    //       }}
-    //     >
-    //       <h1>Codigo verificado</h1>
-    //       <p>Ingrese su nueva contraseña</p>
-    //       <Box
-    //         component="form"
-    //         noValidate
-    //         onSubmit={handleSubmit}
-    //         sx={{ mt: 3 }}
-    //       >
-
-    //         <Grid container spacing={2}>
-    //                 <Grid item xs={12}>
-    //                   <TextField
-    //                     autoComplete="password"
-    //                     name="password"
-    //                     required
-    //                     fullWidth
-    //                     id="password"
-    //                     label="Password"
-    //                     autoFocus
-    //                   />
-    //                 </Grid>
-    //                 <Grid item xs={12}>
-    //                   <TextField
-    //                     required
-    //                     fullWidth
-    //                     id="confirm-password"
-    //                     label="Confirm Password"
-    //                     name="confirm-password"
-    //                     autoComplete="password"
-    //                   />
-    //                 </Grid>
-    //               </Grid>
-    //               <Button
-    //                 type="submit"
-    //                 fullWidth
-    //                 variant="contained"
-    //                 sx={{ mt: 3, mb: 2 }}
-    //                 href="/auth/login" // <--- Quitar esto una vez se programe el registro
-    //                 >Register</Button>
-    //       </Box>
-    //     </Box>
-    //   </Container>
-    // </ThemeProvider>
   );
 }
 export default RegisterPassword;

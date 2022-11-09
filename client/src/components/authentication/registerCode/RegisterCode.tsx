@@ -18,8 +18,7 @@ import "./RegisterCode.scss";
 import * as Yup from "yup";
 import { Formik, Form, FormikHelpers } from "formik";
 import { LoadingButton } from "@mui/lab";
-import { ConfirmationResult } from "firebase/auth";
-
+// import { ConfirmationResult } from "firebase/auth";
 
 const theme = createTheme();
 const api = window.api;
@@ -56,9 +55,9 @@ function RegisterCode() {
           { resetForm, setErrors }: FormikHelpers<RegisterCodeProps>
         ) => {
           try {
-
             console.log(values.code);
 
+ 
           } catch (error: any) {
             resetForm();
             //Falta agregar useRef
