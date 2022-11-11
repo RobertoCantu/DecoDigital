@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import "./ProductList.scss";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   product?: any;
@@ -18,6 +19,7 @@ type Product = {
 };
 
 function ProductList(props: Props) {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([
     {
       Contrato: 0,
@@ -82,10 +84,16 @@ function ProductList(props: Props) {
                     reportProduct(product.Contrato, product.Descripcion)
                   }
                 >
-                  Report
+                  Reportar
                 </Button>
-                <Button variant="contained" size="medium">
-                  See More
+                <Button
+                  variant="contained"
+                  size="medium"
+                  onClick={() => {
+                    navigate("1");
+                  }}
+                >
+                  Ver más
                 </Button>
               </CardActions>
             </Card>
