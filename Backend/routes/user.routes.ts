@@ -110,11 +110,10 @@ userRoutes.post(
         message: "Error al registrar contraseña",
       });
     }
-    
+
     const { identificador, telef1 } = rowsUser[0];
     const nucUser = rowsUser[0].nuc;
     const password = bcrypt.hashSync(req.body.password, 10);
-
 
     const user = {
       nuc: nucUser,
@@ -123,7 +122,6 @@ userRoutes.post(
     };
 
     if (nucUser === nuc && telef1 === phone) {
-
       // find nuc and phone in table clientes on dataset TecTable
       const queryFind = `SELECT nuc, phone FROM bd_prueba.login_usuario WHERE nuc = "${nuc}" AND phone = "${phone}"`;
       const optionsFind = {
@@ -149,12 +147,14 @@ userRoutes.post(
         location: "US-Central1",
       };
       // Run the query as a job
-      const [job] = await bigQueryClient.createQueryJob(options).catch((err) => {
-        return res.json({
-          ok: false,
-          message: "Error al registrar contraseña",
+      const [job] = await bigQueryClient
+        .createQueryJob(options)
+        .catch((err: any) => {
+          return res.json({
+            ok: false,
+            message: "Error al registrar contraseña",
+          });
         });
-      });
       // Wait for the query to finish
       const [rows] = await job.getQueryResults();
       console.log("Creado", rows);

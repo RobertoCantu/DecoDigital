@@ -85,7 +85,6 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const [jobUser] = yield bigQueryClient.createQueryJob(optionsUser);
     // Wait for the query to finish
     const [rowsUser] = yield jobUser.getQueryResults();
-    console.log(rowsUser);
     // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
     const user = rowsUser[0];
     if (user) {

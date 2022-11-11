@@ -85,7 +85,6 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
   const [jobUser] = await bigQueryClient.createQueryJob(optionsUser);
   // Wait for the query to finish
   const [rowsUser] = await jobUser.getQueryResults();
-  console.log(rowsUser);
   // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
   const user = rowsUser[0];
 
