@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Box } from "@mui/material";
 import Item from "../Item";
+import { fetchClientInfo } from "../../routes/routes-service";
 type Props = {};
-
+// const [clientInfo, setClientInfo] = useState({});
+// useEffect(() => {
+//   const clientInfo = fetchClientInfo()
+//   setClientInfo(clientInfo)
+// },[])
 const ClientInfo = (props: Props) => {
+  // fetchClientInfo();
   return (
     <>
       <Container maxWidth="lg" sx={{ boxShadow: 3, pb: 3 }}>

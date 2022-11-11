@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //Plantilla
 const express_1 = require("express");
 const token_1 = __importDefault(require("../classes/token"));
+const authentication_1 = require("../middlewares/authentication");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 // Imports the Google Cloud client library
 const { BigQuery } = require("@google-cloud/bigquery");
@@ -120,4 +121,35 @@ rutaRoutes.delete("/", (req, res) => {
         message: "DELETE",
     });
 });
+rutaRoutes.get("/client_info", authentication_1.verifyToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const bigQueryClient = new BigQuery();
+    const query = `SELECT DISTINCT cliente_unico.nuc, cliente_unico.nomter, cliente_unico.apepaterno, cliente_unico.apematerno, cliente_unico.direc, colonia.desccolonia, ciudad.codciudad, pais.descpais, cliente_unico.entre_calles, municipio.descmunicipio, estado.descestado, cliente_unico.telef1,
+  cliente_unico.correo_1
+  FROM bd_prueba.cliente_unico
+  INNER JOIN
+  bd_prueba.colonia ON colonia.codcolonia = cliente_unico.codcolonia
+  INNER JOIN 
+  bd_prueba.ciudad ON ciudad.codciudad = cliente_unico.codciudad
+  INNER JOIN 
+  bd_prueba.pais ON pais.codpais = cliente_unico.codpais
+  INNER JOIN
+  bd_prueba.municipio ON municipio.codmunicipio = cliente_unico.codmunicipio
+  INNER JOIN
+  bd_prueba.estado ON estado.codestado = cliente_unico.codestado
+  WHERE cliente_unico.nuc = "223525417"
+  LIMIT 1`;
+    const optionsUser = {
+        query: query,
+        location: "US-Central1",
+    };
+    // Run the query as a job
+    const [job] = yield bigQueryClient.createQueryJob(optionsUser);
+    // Wait for the query to finish
+    const [rows] = yield job.getQueryResults();
+    // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
+    const data = rows[0];
+    return res.json({
+        data: data,
+    });
+}));
 exports.default = rutaRoutes;
