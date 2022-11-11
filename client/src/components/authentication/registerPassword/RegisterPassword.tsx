@@ -87,12 +87,12 @@ function RegisterPassword() {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json",
-								"Bearer ": `${token}`,
+								Authorization: `Bearer ${token}`,
 							},
 							body: JSON.stringify({ password: values.password }),
 						};
 
-						await fetch(`${api}/user/register/password`, requestOptions)
+						await fetch('http://localhost:3000/api/user/register/password', requestOptions)
 							.then((response) => response.json())
 							.then((data) => {
 								if (data.ok) {
