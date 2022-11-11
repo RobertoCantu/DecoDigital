@@ -35,7 +35,7 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { authentication } from "../../../firebase-config";
 
 const theme = createTheme();
-const api = window.api;
+const api = "http://localhost:3000/api";
 // Interfaces
 interface InitialValuesNUC {
   nuc: string;
@@ -185,7 +185,7 @@ function RegisterForm() {
           <TabContext value={value}>
             <TabList onChange={handleChange} aria-label="lab API tabs example">
               <Tab label="NUC" value="1" />
-              <Tab label="# Contrato" value="2" />
+              {/* <Tab label="# Contrato" value="2" /> */}
             </TabList>
 
             <TabPanel value="1">
@@ -195,6 +195,7 @@ function RegisterForm() {
                   phone: "",
                   contract: "",
                   city: "",
+                  
                 }}
                 validationSchema={RegisterSchemaNUC}
                 onSubmit={async (
@@ -212,7 +213,8 @@ function RegisterForm() {
                     };
 
                     await fetch(
-                      "http://localhost:3000/api/user/register",
+                      `${api}/user/register`,
+                      // "http://localhost:3000/api/user/register",
                       requestOptions
                     )
                       .then((response) => response.json())
@@ -312,7 +314,7 @@ function RegisterForm() {
               </Formik>
             </TabPanel>
 
-            <TabPanel value="2">
+            {/* <TabPanel value="2">
               <Formik
                 initialValues={{
                   nuc: "",
@@ -396,7 +398,7 @@ function RegisterForm() {
                   </Form>
                 )}
               </Formik>
-            </TabPanel>
+            </TabPanel> */}
           </TabContext>
           <div id="recaptcha-container"></div>
         </div>
