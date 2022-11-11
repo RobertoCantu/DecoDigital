@@ -99,6 +99,7 @@ export default function Router() {
 			children: [
 				{
 					path: "client_info",
+
 					element: <ClientGrid />,
 				},
 				{
