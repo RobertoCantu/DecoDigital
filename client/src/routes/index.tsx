@@ -70,17 +70,17 @@ export default function Router() {
 				{
 					path: "register/code",
 					element: (
-						//<GuestGuard>
-						<RegisterCode />
-						//</GuestGuard>
+						<GuestGuard>
+							<RegisterCode />
+						</GuestGuard>
 					),
 				},
 				{
 					path: "register/password",
 					element: (
-						//<GuestGuard>
-						<RegisterPassword />
-						//</GuestGuard>
+						<GuestGuard>
+							<RegisterPassword />
+						</GuestGuard>
 					),
 				},
 				// {
@@ -92,9 +92,9 @@ export default function Router() {
 		{
 			path: "dashboard",
 			element: (
-				// <AuthGuard>
-				<DashboardLayout />
-				// </AuthGuard>
+				<AuthGuard>
+					<DashboardLayout />
+				</AuthGuard>
 			),
 			children: [
 				{
