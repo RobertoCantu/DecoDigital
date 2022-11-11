@@ -175,7 +175,7 @@ rutaRoutes.get(
     CPR_CLAVE = CPL_CPR_CLAVE AND 
     CPR_TCAT_CLAVE = CPL_CPR_TCAT_CLAVE AND 
     CPR_DIV_NUMERO = CPL_CPR_DIV_NUMERO
-    where cu.nuc = cast(223525417 as string)
+    where cu.nuc = ${req.headers["nuc"]} 
     AND co2.con_estado <> 'CA' 
     ORDER BY 1, 2;`;
 
@@ -195,12 +195,9 @@ rutaRoutes.get(
   }
 );
 
-rutaRoutes.get(
-  "/client_info",
-  verifyToken,
-  async (req: Request, res: Response) => {
-    const bigQueryClient = new BigQuery();
-    const query = `SELECT DISTINCT cliente_unico.nuc, cliente_unico.nomter, cliente_unico.apepaterno, cliente_unico.apematerno, cliente_unico.direc, colonia.desccolonia, ciudad.descciudad, pais.descpais, cliente_unico.entre_calles, municipio.descmunicipio, estado.descestado, cliente_unico.telef1,
+rutaRoutes.get("/client_info", verifyToken, async (req: any, res: Response) => {
+  const bigQueryClient = new BigQuery();
+  const query = `SELECT DISTINCT cliente_unico.nuc, cliente_unico.nomter, cliente_unico.apepaterno, cliente_unico.apematerno, cliente_unico.direc, colonia.desccolonia, ciudad.descciudad, pais.descpais, cliente_unico.entre_calles, municipio.descmunicipio, estado.descestado, cliente_unico.telef1,
   cliente_unico.correo_1
   FROM bd_prueba.cliente_unico
   INNER JOIN
@@ -213,23 +210,22 @@ rutaRoutes.get(
   bd_prueba.municipio ON municipio.codmunicipio = cliente_unico.codmunicipio
   INNER JOIN
   bd_prueba.estado ON estado.codestado = cliente_unico.codestado
-  WHERE cliente_unico.nuc = "223525417"
+  WHERE cliente_unico.nuc = cast(${req.headers["nuc"]} as string)
   LIMIT 1`;
 
-    const optionsUser = {
-      query: query,
-      location: "US-Central1",
-    };
-    // Run the query as a job
-    const [job] = await bigQueryClient.createQueryJob(optionsUser);
-    // Wait for the query to finish
-    const [rows] = await job.getQueryResults();
-    // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
-    const data = rows[0];
-    return res.json({
-      data: data,
-    });
-  }
-);
+  const optionsUser = {
+    query: query,
+    location: "US-Central1",
+  };
+  // Run the query as a job
+  const [job] = await bigQueryClient.createQueryJob(optionsUser);
+  // Wait for the query to finish
+  const [rows] = await job.getQueryResults();
+  // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
+  const data = rows[0];
+  return res.json({
+    data: data,
+  });
+});
 
 export default rutaRoutes;

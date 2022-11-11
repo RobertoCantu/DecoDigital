@@ -36,14 +36,16 @@ const ClientGrid = (props: Props) => {
     descpais: "",
   });
 
+  const customHeaders: any = {
+    Authorization: "Bearer " + localStorage.getItem("accessToken"),
+    "Content-Type": "application/x-www-form-urlencoded",
+    nuc: localStorage.getItem("nuc"),
+  };
   useEffect(() => {
     const api = async () => {
       const data = await fetch("http://localhost:3000/api/ruta/client_info", {
         method: "GET",
-        headers: new Headers({
-          Authorization: "Gearer " + localStorage.getItem("accessToken"),
-          "Content-Type": "application/x-www-form-urlencoded",
-        }),
+        headers: customHeaders,
       });
       const jsonData = await data.json();
       setClientInfo(jsonData.data);

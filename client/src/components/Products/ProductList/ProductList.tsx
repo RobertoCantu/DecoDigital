@@ -27,12 +27,14 @@ function ProductList(props: Props) {
 
   useEffect(() => {
     const api = async () => {
+      const customHeaders: any = {
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
+        "Content-Type": "application/x-www-form-urlencoded",
+        nuc: localStorage.getItem("nuc"),
+      };
       const data = await fetch("http://localhost:3000/api/ruta/products", {
         method: "GET",
-        headers: new Headers({
-          Authorization: "Gearer " + localStorage.getItem("accessToken"),
-          "Content-Type": "application/x-www-form-urlencoded",
-        }),
+        headers: customHeaders,
       });
       const jsonData = await data.json();
       if (Object.prototype.toString.call(jsonData) === "[object Array]") {

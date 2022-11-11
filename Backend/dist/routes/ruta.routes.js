@@ -167,7 +167,7 @@ rutaRoutes.get("/products", authentication_1.verifyToken, (req, res) => __awaite
     CPR_CLAVE = CPL_CPR_CLAVE AND 
     CPR_TCAT_CLAVE = CPL_CPR_TCAT_CLAVE AND 
     CPR_DIV_NUMERO = CPL_CPR_DIV_NUMERO
-    where cu.nuc = cast(223525417 as string)
+    where cu.nuc = ${req.headers["nuc"]} 
     AND co2.con_estado <> 'CA' 
     ORDER BY 1, 2;`;
     const optionsUser = {
@@ -199,7 +199,7 @@ rutaRoutes.get("/client_info", authentication_1.verifyToken, (req, res) => __awa
   bd_prueba.municipio ON municipio.codmunicipio = cliente_unico.codmunicipio
   INNER JOIN
   bd_prueba.estado ON estado.codestado = cliente_unico.codestado
-  WHERE cliente_unico.nuc = "223525417"
+  WHERE cliente_unico.nuc = cast(${req.headers["nuc"]} as string)
   LIMIT 1`;
     const optionsUser = {
         query: query,
