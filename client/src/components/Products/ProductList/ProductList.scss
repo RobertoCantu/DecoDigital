@@ -8,21 +8,38 @@
 
 	.products {
 		flex: 1;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: 5rem;
+		// display: flex;
+		// flex-direction: row;
+		// justify-content: flex-start;
+		// flex-wrap: wrap;
+		// align-items: center;
+
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+		grid-gap: 1rem;
+
 		padding: 2rem;
 
 		.product {
 			box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
 			border-radius: 15px;
 			background-color: #fefefe;
+			width: 20rem;
 			.buttons {
 				justify-content: space-evenly;
 			}
+		}
+
+		@media screen and (max-width: 768px) {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			.product{
+				width: 100%;
+			}
+
 		}
 	}
 }
