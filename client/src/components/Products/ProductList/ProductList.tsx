@@ -150,6 +150,7 @@ function ProductList() {
                   sx={{ color: "red" }}
                   onClick={() =>
                     // reportProduct(product.contract, product.title, "hola")
+                    // TODO: handleClickOpen(product.Contrato, product.Descripcion) .  Este es para el merge de las queries
                     handleClickOpen(product.contract, product.title)
                   }
                 >
