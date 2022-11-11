@@ -91,7 +91,7 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
 
   if (user) {
     const userToken = Token.getJwtToken(user);
-    const response = { user: user, token: userToken };
+    const response = { user: user, token: userToken, nuc: rowsLogin[0].nuc };
 
     return res.json({
       ok: true,
