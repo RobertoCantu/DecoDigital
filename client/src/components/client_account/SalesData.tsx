@@ -45,30 +45,6 @@ const SalesData = (props: Props) => {
         }}
       >
         <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
-          Plan de venta:
-        </strong>
-        <Item>902</Item>
-      </div>
-      <div
-        style={{
-          paddingLeft: "1em",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
-          Valor de pago:
-        </strong>
-        <Item>278.79</Item>
-      </div>
-      <div
-        style={{
-          paddingLeft: "1em",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
           Fecha de venta:
         </strong>
         <Item>17-06-2012</Item>
@@ -81,7 +57,7 @@ const SalesData = (props: Props) => {
         }}
       >
         <strong style={{ padding: "1em", width: "14em", textAlign: "right" }}>
-          Fecha de primer pago:
+          Comportamiento: NORMAL
         </strong>
         <Item>01-08-2012</Item>
       </div>

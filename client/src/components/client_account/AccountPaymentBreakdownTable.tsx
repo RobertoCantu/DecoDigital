@@ -7,86 +7,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-function createData(
-  tipo: string,
-  folio: string,
-  fecha: string,
-  monto: number,
-  capital: number,
-  intereses: number,
-  iva: number,
-  moratorio: number,
-  iva_moratorio: number
-) {
+function createData(tipo: string, folio: string, fecha: string, pago: number) {
   return {
     tipo,
     folio,
     fecha,
-    monto,
-    capital,
-    intereses,
-    iva,
-    moratorio,
-    iva_moratorio,
+    pago,
   };
 }
 
 const rows = [
-  createData(
-    "PG",
-    "RB1201529256",
-    "18/07/2012",
-    280.0,
-    197.54,
-    42.84,
-    38.62,
-    0.0,
-    0.0
-  ),
-  createData(
-    "PG",
-    "RB1201529256",
-    "18/07/2012",
-    280.0,
-    197.54,
-    42.84,
-    38.62,
-    0.0,
-    0.0
-  ),
-  createData(
-    "PG",
-    "RB1201529256",
-    "18/07/2012",
-    280.0,
-    197.54,
-    42.84,
-    38.62,
-    0.0,
-    0.0
-  ),
-  createData(
-    "PG",
-    "RB1201529256",
-    "18/07/2012",
-    280.0,
-    197.54,
-    42.84,
-    38.62,
-    0.0,
-    0.0
-  ),
-  createData(
-    "PG",
-    "RB1201529256",
-    "18/07/2012",
-    280.0,
-    197.54,
-    42.84,
-    38.62,
-    0.0,
-    0.0
-  ),
+  createData("PG", "RB1201529256", "18/07/2012", 280.0),
+  createData("PG", "RB1201529256", "18/07/2012", 280.0),
+  createData("PG", "RB1201529256", "18/07/2012", 280.0),
+  createData("PG", "RB1201529256", "18/07/2012", 280.0),
+  createData("PG", "RB1201529256", "18/07/2012", 280.0),
 ];
 
 export default function AccountPaymentBreakdownTable() {
@@ -102,25 +37,10 @@ export default function AccountPaymentBreakdownTable() {
               Folio&nbsp;
             </TableCell>
             <TableCell style={{ fontWeight: 600 }} align="center">
-              Fecha&nbsp;
+              Fecha &nbsp;
             </TableCell>
             <TableCell style={{ fontWeight: 600 }} align="center">
-              Monto&nbsp;
-            </TableCell>
-            <TableCell style={{ fontWeight: 600 }} align="center">
-              Capital&nbsp;
-            </TableCell>
-            <TableCell style={{ fontWeight: 600 }} align="center">
-              Intereses&nbsp;
-            </TableCell>
-            <TableCell style={{ fontWeight: 600 }} align="center">
-              IVA&nbsp;
-            </TableCell>
-            <TableCell style={{ fontWeight: 600 }} align="center">
-              Moratorio&nbsp;
-            </TableCell>
-            <TableCell style={{ fontWeight: 600 }} align="center">
-              IVA Moratorio&nbsp;
+              Pago&nbsp;
             </TableCell>
           </TableRow>
         </TableHead>
@@ -133,12 +53,7 @@ export default function AccountPaymentBreakdownTable() {
               <TableCell align="center">{row.tipo}</TableCell>
               <TableCell align="center">{row.folio}</TableCell>
               <TableCell align="center">{row.fecha}</TableCell>
-              <TableCell align="center">{row.monto}</TableCell>
-              <TableCell align="center">{row.capital}</TableCell>
-              <TableCell align="center">{row.intereses}</TableCell>
-              <TableCell align="center">{row.iva}</TableCell>
-              <TableCell align="center">{row.moratorio}</TableCell>
-              <TableCell align="center">{row.iva_moratorio}</TableCell>
+              <TableCell align="center">{row.pago}</TableCell>
             </TableRow>
           ))}
         </TableBody>
