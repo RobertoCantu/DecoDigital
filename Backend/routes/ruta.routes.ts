@@ -56,17 +56,22 @@ rutaRoutes.post("/login", async (req: any, res: Response) => {
     });
   }
   const passwordNew = rowsLogin[0].password;
-
+  let incorrect = false;
   // compare passwords
-  bcrypt.compare(password, passwordNew).then((result) => {
+  await bcrypt.compare(password, passwordNew).then((result) => {
     if (!result) {
+      incorrect = true;
       return res.status(400).json({
         ok: false,
         message: "Contraseña incorrecta",
       });
     }
   });
-
+ 
+  if (incorrect) {
+    return;
+  }
+  
   let intPhone = parseInt(phone);
 
   //get nomter, apepaterno, apematerno, correo, identificador from cliente_unico table where nuc = nuc
