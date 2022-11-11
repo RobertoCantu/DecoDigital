@@ -6,6 +6,7 @@ import ClientInfo from "../client_info/ClientInfo";
 import AccountBalances from "./AccountBalances";
 import AccountPaymentBreakdown from "./AccountPaymentBreakdown";
 import AccountPaymenDue from "./AccountPaymenDue";
+import { useParams } from "react-router-dom";
 type ClientData = {
   nuc: string;
   nomter: string;
@@ -25,6 +26,8 @@ type ClientData = {
 type Props = {};
 
 const AccountGrid = (props: Props) => {
+  const id = useParams();
+  console.log(id);
   const [clientInfo, setClientInfo] = useState<ClientData>({
     nuc: "",
     nomter: "",

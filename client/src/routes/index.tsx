@@ -102,12 +102,12 @@ export default function Router() {
           element: <ClientGrid />,
         },
         {
-          path: "client_account",
-          element: <AccountGrid />,
-        },
-        {
           path: "products",
           element: <ProductList />,
+        },
+        {
+          path: "products/:id",
+          element: <AccountGrid />,
         },
       ],
     },
