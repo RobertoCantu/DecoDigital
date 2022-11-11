@@ -26,93 +26,99 @@ import useAuth from "../hooks/useAuth";
 import useIsMountedRef from "../hooks/useIsMountedRef";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
-	display: "flex",
-	alignItems: "center",
-	padding: theme.spacing(0, 1),
-	// necessary for content to be below app bar
-	...theme.mixins.toolbar,
-	justifyContent: "flex-end",
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
 }));
 
 const drawerWidth = 240;
 
 function DashboardSidebar({ open, handleSidebarClose }: any) {
-	const theme = useTheme();
-	const navigate = useNavigate();
+  const theme = useTheme();
+  const navigate = useNavigate();
 
-	const { user, logout } = useAuth();
-	const isMountedRef = useIsMountedRef();
-	const { enqueueSnackbar } = useSnackbar();
+  const { user, logout } = useAuth();
+  const isMountedRef = useIsMountedRef();
+  const { enqueueSnackbar } = useSnackbar();
 
-	// Functions
-	const handleLogout = async () => {
-		try {
-			await logout?.();
-			if (isMountedRef.current) {
-				navigate("/");
-			}
-		} catch (error) {
-			console.error(error);
-			enqueueSnackbar("Unable to logout", { variant: "error" });
-		}
-	};
+  // Functions
+  const handleLogout = async () => {
+    try {
+      await logout?.();
+      if (isMountedRef.current) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar("Unable to logout", { variant: "error" });
+    }
+  };
 
-	return (
-		<Drawer
-			sx={{
-				width: drawerWidth,
-				flexShrink: 0,
-				"& .MuiDrawer-paper": {
-					width: drawerWidth,
-					boxSizing: "border-box",
-				},
-			}}
-			variant="persistent"
-			anchor="left"
-			open={open}
-		>
-			<DrawerHeader>
-				<Avatar
-					alt="Remy Sharp"
-					src="/static/images/avatar/1.jpg"
-					sx={{ width: 128, height: 128, margin: "auto", p: 4, m: 4 }}
-				/>
-				<IconButton onClick={handleSidebarClose} sx={{ m: 0, p: 0 }}>
-					{theme.direction === "ltr" ? (
-						<ChevronLeftIcon />
-					) : (
-						<ChevronRightIcon />
-					)}
-				</IconButton>
-			</DrawerHeader>
-			<Divider />
-			<List>
-				{["Catálogo", "Estado de cuenta"].map((text, index) => (
-					<ListItem key={text} disablePadding>
-						<ListItemButton href={PATH_DASHBOARD.general.clientAccount}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <Inventory /> : <AccountBalance />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItemButton>
-					</ListItem>
-				))}
-			</List>
-			<Divider />
-			<List>
-				{["Cerrar sesión"].map((text, index) => (
-					<ListItem key={text} disablePadding>
-						<ListItemButton onClick={handleLogout}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <ExitToApp /> : <MailIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItemButton>
-					</ListItem>
-				))}
-			</List>
-		</Drawer>
-	);
+  return (
+    <Drawer
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: drawerWidth,
+          boxSizing: "border-box",
+        },
+      }}
+      variant="persistent"
+      anchor="left"
+      open={open}
+    >
+      <DrawerHeader>
+        <Avatar
+          alt="Remy Sharp"
+          src="/static/images/avatar/1.jpg"
+          sx={{ width: 96, height: 96, margin: "auto", p: 4, m: 4 }}
+        />
+        <IconButton onClick={handleSidebarClose} sx={{ m: 0, p: 0 }}>
+          {theme.direction === "ltr" ? (
+            <ChevronLeftIcon />
+          ) : (
+            <ChevronRightIcon />
+          )}
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      <List>
+        <ListItem>
+          <ListItemButton href={PATH_DASHBOARD.general.clientInfo}>
+            <ListItemIcon>
+              <AccountBalance />
+            </ListItemIcon>
+            <ListItemText primary={"Perfil"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem key={"catalogo"} disablePadding>
+          <ListItemButton href={PATH_DASHBOARD.general.products}>
+            <ListItemIcon>
+              <Inventory />
+            </ListItemIcon>
+            <ListItemText primary={"Catálogo"} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        {["Cerrar sesión"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton onClick={handleLogout}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <ExitToApp /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
+  );
 }
 
 export default DashboardSidebar;

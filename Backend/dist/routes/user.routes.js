@@ -138,7 +138,9 @@ userRoutes.post("/register/password", authentication_1.verifyToken, (req, res) =
             location: "US-Central1",
         };
         // Run the query as a job
-        const [job] = yield bigQueryClient.createQueryJob(options).catch((err) => {
+        const [job] = yield bigQueryClient
+            .createQueryJob(options)
+            .catch((err) => {
             return res.json({
                 ok: false,
                 message: "Error al registrar contraseña",

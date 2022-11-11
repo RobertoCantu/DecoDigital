@@ -35,7 +35,7 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { authentication } from "../../../firebase-config";
 
 const theme = createTheme();
-const api = window.api;
+const api = "http://localhost:3000/api";
 // Interfaces
 interface InitialValuesNUC {
 	nuc: string;
@@ -185,7 +185,7 @@ function RegisterForm() {
 					<TabContext value={value}>
 						<TabList onChange={handleChange} aria-label="lab API tabs example">
 							<Tab label="NUC" value="1" />
-							<Tab label="# Contrato" value="2" />
+							{/* <Tab label="# Contrato" value="2" /> */}
 						</TabList>
 
 						<TabPanel value="1">
@@ -212,7 +212,8 @@ function RegisterForm() {
 										};
 
 										await fetch(
-											"http://localhost:3000/api/user/register",
+											`${api}/user/register`,
+											// "http://localhost:3000/api/user/register",
 											requestOptions
 										)
 											.then((response) => response.json())
@@ -312,91 +313,91 @@ function RegisterForm() {
 							</Formik>
 						</TabPanel>
 
-						<TabPanel value="2">
-							<Formik
-								initialValues={{
-									nuc: "",
-									phone: "",
-									contract: "",
-									city: "",
-								}}
-								validationSchema={RegisterSchemaContract}
-								onSubmit={async (
-									values: InitialValuesContract,
-									{ resetForm, setErrors }: FormikHelpers<InitialValuesContract>
-								) => {
-									try {
-									} catch (error: any) {
-										resetForm();
-										setErrors({ afterSubmit: error.message });
-									}
-								}}
-							>
-								{({
-									handleChange,
-									values,
-									errors,
-									touched,
-									isSubmitting,
-									setFieldValue,
-								}) => (
-									<Form>
-										<Stack spacing={2}>
-											{errors.afterSubmit && (
-												<Alert severity="error">{errors.afterSubmit}</Alert>
-											)}
-											<TextField
-												fullWidth
-												autoComplete="contract"
-												type="text"
-												label="# Contrato"
-												name="contract"
-												value={values.contract}
-												onChange={handleChange}
-												error={Boolean(touched.contract && errors.contract)}
-												helperText={touched.contract && errors.contract}
-											/>
-											<TextField
-												fullWidth
-												autoComplete="city"
-												type="text"
-												label="Municipio"
-												name="city"
-												value={values.city}
-												onChange={handleChange}
-												error={Boolean(touched.city && errors.city)}
-												helperText={touched.city && errors.city}
-											/>
-											<TextField
-												fullWidth
-												autoComplete="phone"
-												type="text"
-												label="Celular"
-												name="phone"
-												value={values.phone}
-												inputProps={{ maxLength: 10 }}
-												onChange={(e) => {
-													e.preventDefault();
-													const value = e.target.value.replace(PHONE_REGEX, "");
-													setFieldValue("phone", value);
-												}}
-												error={Boolean(touched.phone && errors.phone)}
-												helperText={touched.phone && errors.phone}
-											/>
-											<LoadingButton
-												fullWidth
-												size="large"
-												type="submit"
-												variant="contained"
-												loading={isSubmitting}
-											>
-												Registrate
-											</LoadingButton>
-										</Stack>
-									</Form>
-								)}
-							</Formik>
-						</TabPanel>
+						{/* <TabPanel value="2">
+              <Formik
+                initialValues={{
+                  nuc: "",
+                  phone: "",
+                  contract: "",
+                  city: "",
+                }}
+                validationSchema={RegisterSchemaContract}
+                onSubmit={async (
+                  values: InitialValuesContract,
+                  { resetForm, setErrors }: FormikHelpers<InitialValuesContract>
+                ) => {
+                  try {
+                  } catch (error: any) {
+                    resetForm();
+                    setErrors({ afterSubmit: error.message });
+                  }
+                }}
+              >
+                {({
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  isSubmitting,
+                  setFieldValue,
+                }) => (
+                  <Form>
+                    <Stack spacing={2}>
+                      {errors.afterSubmit && (
+                        <Alert severity="error">{errors.afterSubmit}</Alert>
+                      )}
+                      <TextField
+                        fullWidth
+                        autoComplete="contract"
+                        type="text"
+                        label="# Contrato"
+                        name="contract"
+                        value={values.contract}
+                        onChange={handleChange}
+                        error={Boolean(touched.contract && errors.contract)}
+                        helperText={touched.contract && errors.contract}
+                      />
+                      <TextField
+                        fullWidth
+                        autoComplete="city"
+                        type="text"
+                        label="Municipio"
+                        name="city"
+                        value={values.city}
+                        onChange={handleChange}
+                        error={Boolean(touched.city && errors.city)}
+                        helperText={touched.city && errors.city}
+                      />
+                      <TextField
+                        fullWidth
+                        autoComplete="phone"
+                        type="text"
+                        label="Celular"
+                        name="phone"
+                        value={values.phone}
+                        inputProps={{ maxLength: 10 }}
+                        onChange={(e) => {
+                          e.preventDefault();
+                          const value = e.target.value.replace(PHONE_REGEX, "");
+                          setFieldValue("phone", value);
+                        }}
+                        error={Boolean(touched.phone && errors.phone)}
+                        helperText={touched.phone && errors.phone}
+                      />
+                      <LoadingButton
+                        fullWidth
+                        size="large"
+                        type="submit"
+                        variant="contained"
+                        loading={isSubmitting}
+                      >
+                        Registrate
+                      </LoadingButton>
+                    </Stack>
+                  </Form>
+                )}
+              </Formik>
+            </TabPanel> */}
 					</TabContext>
 					<div id="recaptcha-container"></div>
 				</div>

@@ -32,15 +32,15 @@ export default function AccountTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell style={{ fontWeight: 600 }}>Concepto</TableCell>
+            <TableCell style={{ fontWeight: 600 }}>Fecha</TableCell>
             <TableCell style={{ fontWeight: 600 }} align="right">
-              Pago&nbsp;
+              Mensualidad&nbsp;
             </TableCell>
             <TableCell style={{ fontWeight: 600 }} align="right">
-              Vencido&nbsp;
+              Monto para regularizarse&nbsp;
             </TableCell>
             <TableCell style={{ fontWeight: 600 }} align="right">
-              Por vencer&nbsp;
+              Por pagar&nbsp;
             </TableCell>
           </TableRow>
         </TableHead>

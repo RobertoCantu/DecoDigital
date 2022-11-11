@@ -69,18 +69,6 @@ const VendorData = (props: Props) => {
         }}
       >
         <strong style={{ padding: "1em", width: "9em", textAlign: "right" }}>
-          Concesionaria:
-        </strong>
-        <Item>2400 Mercadotecnia Sultana de CV</Item>
-      </div>
-      <div
-        style={{
-          paddingLeft: "1em",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
-        <strong style={{ padding: "1em", width: "9em", textAlign: "right" }}>
           Origen de la venta:
         </strong>
         <Item>Cambaceo</Item>

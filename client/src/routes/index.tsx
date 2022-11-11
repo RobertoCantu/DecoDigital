@@ -1,9 +1,9 @@
 import { Suspense, lazy } from "react";
 import {
-	Navigate,
-	useRoutes,
-	useLocation,
-	useNavigate,
+  Navigate,
+  useRoutes,
+  useLocation,
+  useNavigate,
 } from "react-router-dom";
 import DashboardLayout from "../layout/";
 import Login from "../pages/authentication/Login";
@@ -47,73 +47,72 @@ import AuthGuard from "../guards/AuthGuard";
 // };
 
 export default function Router() {
-	return useRoutes([
-		{
-			path: "auth",
-			children: [
-				{
-					path: "login",
-					element: (
-						<GuestGuard>
-							<Login />
-						</GuestGuard>
-					),
-				},
-				{
-					path: "register",
-					element: (
-						<GuestGuard>
-							<Register />
-						</GuestGuard>
-					),
-				},
-				{
-					path: "register/code",
-					element: (
-						<GuestGuard>
-							<RegisterCode />
-						</GuestGuard>
-					),
-				},
-				{
-					path: "register/password",
-					element: (
-						<GuestGuard>
-							<RegisterPassword />
-						</GuestGuard>
-					),
-				},
-				// {
-				//   path: 'logout',
-				//   element: <Logout/>
-				// },
-			],
-		},
-		{
-			path: "dashboard",
-			element: (
-				<AuthGuard>
-					<DashboardLayout />
-				</AuthGuard>
-			),
-			children: [
-				{
-					path: "client_info",
-
-					element: <ClientGrid />,
-				},
-				{
-					path: "client_account",
-					element: <AccountGrid />,
-				},
-				{
-					path: "products",
-					element: <ProductList />,
-				},
-			],
-		},
-		{ path: "/", element: <Navigate to="/auth/login" replace /> },
-	]);
+  return useRoutes([
+    {
+      path: "auth",
+      children: [
+        {
+          path: "login",
+          element: (
+            <GuestGuard>
+              <Login />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: "register",
+          element: (
+            <GuestGuard>
+              <Register />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: "register/code",
+          element: (
+            <GuestGuard>
+              <RegisterCode />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: "register/password",
+          element: (
+            <GuestGuard>
+              <RegisterPassword />
+            </GuestGuard>
+          ),
+        },
+        // {
+        //   path: 'logout',
+        //   element: <Logout/>
+        // },
+      ],
+    },
+    {
+      path: "dashboard",
+      element: (
+        <AuthGuard>
+          <DashboardLayout />
+        </AuthGuard>
+      ),
+      children: [
+        {
+          path: "client_info/",
+          element: <ClientGrid />,
+        },
+        {
+          path: "products",
+          element: <ProductList />,
+        },
+        {
+          path: "products/:id",
+          element: <AccountGrid />,
+        },
+      ],
+    },
+    { path: "/", element: <Navigate to="/auth/login" replace /> },
+  ]);
 }
 
 // // Authentication

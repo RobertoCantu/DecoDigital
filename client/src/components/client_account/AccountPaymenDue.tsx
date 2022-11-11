@@ -1,10 +1,11 @@
 import React from "react";
 import { Container, Grid, Box } from "@mui/material";
-import Item from "../Item";
-import AccountTable from "./AccountTable";
+import AccountPaymentBreakdownTable from "./AccountPaymentBreakdownTable";
+import AccountPaymentDueTable from "./AccountPaymentDueTable";
+
 type Props = {};
 
-const AccountBalances = (props: Props) => {
+const AccountPaymenDue = (props: Props) => {
   return (
     <Box
       sx={{
@@ -24,7 +25,7 @@ const AccountBalances = (props: Props) => {
           pt: 2,
         }}
       >
-        <strong style={{ color: "#37474f" }}>Fecha del siguiente pago</strong>
+        <strong style={{ color: "#37474f" }}>Historial de pagos</strong>
       </Box>
       <div
         style={{
@@ -34,10 +35,9 @@ const AccountBalances = (props: Props) => {
           justifyContent: "space-between",
         }}
       ></div>
-      <AccountTable />
-      <div></div>
+      <AccountPaymentDueTable />
     </Box>
   );
 };
 
-export default AccountBalances;
+export default AccountPaymenDue;
