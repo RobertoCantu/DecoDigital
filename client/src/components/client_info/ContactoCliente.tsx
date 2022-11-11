@@ -2,7 +2,9 @@ import React from "react";
 import { Container, Grid, Box } from "@mui/material";
 import Item from "../Item";
 
-type Props = {};
+type Props = {
+  client?: any;
+};
 
 const ContactoCliente = (props: Props) => {
   return (
@@ -27,7 +29,7 @@ const ContactoCliente = (props: Props) => {
         }}
       >
         <strong style={{ padding: "1em", width: "7em" }}>Teléfono:</strong>
-        <Item>813125659</Item>
+        <Item>{props.client.telef1}</Item>
       </div>
       <div
         style={{
@@ -36,7 +38,7 @@ const ContactoCliente = (props: Props) => {
         }}
       >
         <strong style={{ padding: "1em", width: "7em" }}>Correo(s):</strong>
-        <Item> correo@gmail.com</Item>
+        <Item> {props.client.correo_1}</Item>
       </div>
       <div
         style={{
@@ -44,9 +46,9 @@ const ContactoCliente = (props: Props) => {
           flexDirection: "row",
         }}
       >
-        <strong style={{ padding: "1em", width: "12em" }}>
+        {/* <strong style={{ padding: "1em", width: "12em" }}>
           Redes sociales:
-        </strong>
+        </strong> */}
       </div>
     </Box>
   );

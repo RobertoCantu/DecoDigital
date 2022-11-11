@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Container, Box } from "@mui/material";
 import Item from "../Item";
 import { fetchClientInfo } from "../../routes/routes-service";
-type Props = {};
-// const [clientInfo, setClientInfo] = useState({});
-// useEffect(() => {
-//   const clientInfo = fetchClientInfo()
-//   setClientInfo(clientInfo)
-// },[])
+
+type Props = {
+  client?: any;
+};
+
 const ClientInfo = (props: Props) => {
-  // fetchClientInfo();
   return (
     <>
       <Container maxWidth="lg" sx={{ boxShadow: 3, pb: 3 }}>
@@ -25,11 +23,14 @@ const ClientInfo = (props: Props) => {
         >
           <div style={{ display: "flex", flexDirection: "row" }}>
             <span style={{ padding: "1em" }}>Nombre: </span>
-            <Item>José Luis Alvarez Hernández</Item>
+            <Item>
+              {props.client.nomter} {props.client.apepaterno}{" "}
+              {props.client.apematerno}
+            </Item>
           </div>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <span style={{ padding: "1em" }}>Número único de cliente: </span>
-            <Item>22080481</Item>
+            <Item>{props.client.nuc}</Item>
           </div>
         </Box>
         <Box sx={{ fontSize: "h6.fontSize", p: 1, pt: 2 }}>
@@ -50,7 +51,7 @@ const ClientInfo = (props: Props) => {
               >
                 Calle y No:{" "}
               </span>
-              <Item>1 Avenida 2094</Item>
+              <Item>{props.client.direc}</Item>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <span
@@ -58,7 +59,7 @@ const ClientInfo = (props: Props) => {
               >
                 Colonia:{" "}
               </span>
-              <Item>Santa Fe Nor Poniente</Item>
+              <Item>{props.client.desccolonia}</Item>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <span
@@ -66,7 +67,7 @@ const ClientInfo = (props: Props) => {
               >
                 Ciudad:{" "}
               </span>
-              <Item>Monterrey</Item>
+              <Item>{props.client.descciudad}</Item>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <span
@@ -74,7 +75,7 @@ const ClientInfo = (props: Props) => {
               >
                 País:{" "}
               </span>
-              <Item>México</Item>
+              <Item>{props.client.descpais}</Item>
             </div>
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -84,7 +85,7 @@ const ClientInfo = (props: Props) => {
               >
                 Entre calles:
               </span>
-              <Item>Calle 1 y Calle 2</Item>
+              <Item>{props.client.entre_calles}</Item>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <span
@@ -92,7 +93,7 @@ const ClientInfo = (props: Props) => {
               >
                 Municipio:{" "}
               </span>
-              <Item>Monterrey</Item>
+              <Item>{props.client.descmunicipio}</Item>
             </div>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <span
@@ -100,7 +101,7 @@ const ClientInfo = (props: Props) => {
               >
                 Estado:{" "}
               </span>
-              <Item>Nuevo León</Item>
+              <Item>{props.client.descestado}</Item>
             </div>
           </Box>
         </Box>

@@ -8,80 +8,90 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import "./ProductList.scss";
 
+type Props = {
+  product?: any;
+};
 
-function reportProduct(id:number, contract: string){
-	console.log(id);
-}
+type Product = {
+  Contrato: number;
+  Descripcion: string;
+};
 
+function ProductList(props: Props) {
+  const [products, setProducts] = useState<Product[]>([
+    {
+      Contrato: 0,
+      Descripcion: "",
+    },
+  ]);
 
-function ProductList() {
-	//const [products, setProducts] = useState([{ title: "test", contract: 0 }]);
+  useEffect(() => {
+    const api = async () => {
+      const data = await fetch("http://localhost:3000/api/ruta/products", {
+        method: "GET",
+        headers: new Headers({
+          Authorization: "Gearer " + localStorage.getItem("accessToken"),
+          "Content-Type": "application/x-www-form-urlencoded",
+        }),
+      });
+      const jsonData = await data.json();
+      if (Object.prototype.toString.call(jsonData) === "[object Array]") {
+        setProducts(jsonData.data);
+      } else {
+        setProducts([jsonData.data]);
+      }
+    };
+    api();
+  }, []);
 
-	const products = [
-		{ title: "Product 1", contract: 1 },
-		{ title: "Product 2", contract: 2 },
-		{ title: "Product 3", contract: 3 },
-		{ title: "Product 4", contract: 4 },
-		{ title: "Product 5", contract: 5 },
-		{ title: "Product 6", contract: 6 },
-		{ title: "Product 7", contract: 7 },
-		{ title: "Product 8", contract: 8 },
-		{ title: "Product 9", contract: 9 },
-		{ title: "Product 10", contract: 10 },
-		{ title: "Product 11", contract: 11 },
-		{ title: "Product 12", contract: 12 },
-		{ title: "Product 13", contract: 13 },
-		{ title: "Product 14", contract: 14 },
-		{ title: "Product 15", contract: 15 },
-		{ title: "Product 16", contract: 16 },
-	];
+  function reportProduct(contrato: number, descripcion: string) {
+    console.log(contrato, descripcion);
+  }
 
-	// useEffect(() => {
-	//   //setProducts(product);
-	// }, [{ title: "test", contract: 0 }]);
-
-	return (
-		<>
-			<div className="container">
-				<div className="products">
-					{products?.map((product, index) => (
-						<Card
-							key={index}
-							sx={{ width: 1 / 5, height: 150 }}
-							className="product"
-						>
-							<CardContent>
-								<Typography
-									sx={{ fontSize: 14 }}
-									color="text.secondary"
-									gutterBottom
-								>
-									{product.title}
-								</Typography>
-								<Typography variant="body2">
-									Contract: {product.contract}
-								</Typography>
-							</CardContent>
-							<CardActions className="buttons">
-								<Button
-									variant="outlined"
-									size="medium"
-									color="warning"
-									sx={{ color: "red" }}
-									onClick={() => reportProduct(product.contract, product.title)}
-								>
-									Report
-								</Button>
-								<Button variant="contained" size="medium">
-									See More
-								</Button>
-							</CardActions>
-						</Card>
-					))}
-				</div>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div className="container">
+        <div className="products">
+          {products?.map((product: Product, index: number) => (
+            <Card
+              key={index}
+              sx={{ width: 1 / 5, height: 150 }}
+              className="product"
+            >
+              <CardContent>
+                <Typography
+                  sx={{ fontSize: 14 }}
+                  color="text.secondary"
+                  gutterBottom
+                >
+                  {product.Descripcion}
+                </Typography>
+                <Typography variant="body2">
+                  Contract: {product.Contrato}
+                </Typography>
+              </CardContent>
+              <CardActions className="buttons">
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  color="warning"
+                  sx={{ color: "red" }}
+                  onClick={() =>
+                    reportProduct(product.Contrato, product.Descripcion)
+                  }
+                >
+                  Report
+                </Button>
+                <Button variant="contained" size="medium">
+                  See More
+                </Button>
+              </CardActions>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default ProductList;
