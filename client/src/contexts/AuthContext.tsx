@@ -153,7 +153,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
 			const { message } = response;
 
-			const { token, user } = message;
+			const { token, user, nuc } = message;
 			// const user: any = {
 			//   "name": response.name,
 			//   "lastName": response.lastName,
@@ -165,6 +165,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 			// Set JWT in local storage
 			window.localStorage.setItem("accessToken", token);
 			window.localStorage.setItem("user", JSON.stringify(user));
+			window.localStorage.setItem("nuc", JSON.stringify(nuc));
 
 			dispatch({
 				type: Types.Login,

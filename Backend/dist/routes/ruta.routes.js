@@ -90,7 +90,7 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const user = rowsUser[0];
     if (user) {
         const userToken = token_1.default.getJwtToken(user);
-        const response = { user: user, token: userToken };
+        const response = { user: user, token: userToken, nuc: rowsLogin[0].nuc };
         return res.json({
             ok: true,
             message: response,
