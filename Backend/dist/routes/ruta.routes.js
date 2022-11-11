@@ -56,22 +56,26 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     if (rowsLogin.length === 0) {
         return res.status(400).json({
             ok: false,
-            message: "Usuario no encontrado"
+            message: "Usuario no encontrado",
         });
     }
     const passwordNew = rowsLogin[0].password;
     // compare passwords
-    if (!bcrypt_1.default.compareSync(password, passwordNew)) {
-        return res.status(400).json({
-            ok: false,
-            message: "Contraseña incorrecta",
-        });
-    }
-    //get nuc and phone from bd_prueba dataset and cliente_unico table
-    const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.telefono, C.identificador
-    FROM \`driven-rig-363116.bd_prueba.login_usuario\` L 
-    INNER JOIN \`driven-rig-363116.bd_prueba.cliente_unico\` C on L.nuc = C.nuc
-    WHERE L.password = "${passwordCrpt}" AND L.telefono = ${phone}`;
+    bcrypt_1.default.compare(password, passwordNew).then((result) => {
+        if (!result) {
+            return res.status(400).json({
+                ok: false,
+                message: "Contraseña incorrecta",
+            });
+        }
+    });
+    let intPhone = parseInt(phone);
+    //get nomter, apepaterno, apematerno, correo, identificador from cliente_unico table where nuc = nuc
+    const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, C.identificador FROM \`driven-rig-363116.bd_prueba.cliente_unico\` C  WHERE nuc = "${rowsLogin[0].nuc}"`;
+    // const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, L.phone, C.identificador
+    //   FROM \`driven-rig-363116.bd_prueba.login_usuario\` L
+    //   INNER JOIN \`driven-rig-363116.bd_prueba.cliente_unico\` C on L.nuc = C.nuc
+    //   WHERE L.password = "${passwordCrpt}" AND L.phone = "${phone}"`;
     const optionsUser = {
         query: userQuery,
         location: "US-Central1",
@@ -80,6 +84,7 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
     const [jobUser] = yield bigQueryClient.createQueryJob(optionsUser);
     // Wait for the query to finish
     const [rowsUser] = yield jobUser.getQueryResults();
+    console.log(rowsUser);
     // const { nombre, apellido_p, apellido_m, correo, telefono, id } = rowsUser[0];
     const user = rowsUser[0];
     if (user) {
@@ -91,7 +96,7 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
     }
     else {
-        return res.json({
+        return res.status(400).json({
             ok: false,
             message: "Usuario no encontrado",
         });

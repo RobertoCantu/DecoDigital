@@ -8,6 +8,12 @@ import Typography from "@mui/material/Typography";
 import { Container } from "@mui/system";
 import "./ProductList.scss";
 
+
+function reportProduct(id:number, contract: string){
+	console.log(id);
+}
+
+
 function ProductList() {
 	//const [products, setProducts] = useState([{ title: "test", contract: 0 }]);
 
@@ -62,6 +68,7 @@ function ProductList() {
 									size="medium"
 									color="warning"
 									sx={{ color: "red" }}
+									onClick={() => reportProduct(product.contract, product.title)}
 								>
 									Report
 								</Button>
