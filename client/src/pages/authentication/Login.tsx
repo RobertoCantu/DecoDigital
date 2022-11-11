@@ -7,7 +7,17 @@ import { PATH_AUTH } from "../../routes/paths";
 
 // UI
 import { makeStyles } from "@mui/material/styles";
-import { Box, Card, Stack, Container, Typography, Link } from "@mui/material";
+import {
+	Box,
+	Card,
+	Stack,
+	Container,
+	Typography,
+	Link,
+	Avatar,
+} from "@mui/material";
+
+import DecoLogo from "../../assets/DecoLogo.jpeg";
 
 const root: any = {
 	display: "flex",
@@ -41,6 +51,18 @@ function Login() {
 							<Typography variant="h4" gutterBottom>
 								Iniciar Sesión a Deco Digital
 							</Typography>
+							{/* <Box sx={{ width: "100%" }}>
+								<Avatar
+									variant={"rounded"}
+									alt="Logo"
+									src={DecoLogo}
+									style={{
+										width: 100,
+										height: 100,
+									}}
+								/>
+							</Box> */}
+							<img src={DecoLogo} width="200" />
 							<Typography sx={{ color: "text.secondary" }}>
 								Ingresa tus datos
 							</Typography>
