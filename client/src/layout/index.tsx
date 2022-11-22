@@ -40,6 +40,12 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 	}),
 }));
 
+const RootStyle = styled('div')({
+  display: 'flex',
+  minHeight: '100%',
+  overflow: 'hidden'
+});
+
 const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
@@ -52,14 +58,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 function DashboardLayout() {
 	const [open, setOpen] = useState(false);
 	return (
-		<Box sx={{ display: "flex" }}>
+		<RootStyle>
 			<DashboardNavbar openSidebar={() => setOpen(true)} open={open} />
 			<DashboardSidebar open={open} handleSidebarClose={() => setOpen(false)} />
 			<Main open={open}>
 				<DrawerHeader />
 				<Outlet />
 			</Main>
-		</Box>
+		</RootStyle>
 	);
 }
 

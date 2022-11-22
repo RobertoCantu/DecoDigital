@@ -7,6 +7,9 @@ import AccountBalances from "./AccountBalances";
 import AccountPaymentBreakdown from "./AccountPaymentBreakdown";
 import AccountPaymenDue from "./AccountPaymenDue";
 import { useParams } from "react-router-dom";
+
+// Components
+//import Breadcrumb from '../Breadcrumb'
 type ClientData = {
   nuc: string;
   nomter: string;
@@ -62,7 +65,8 @@ const AccountGrid = (props: Props) => {
   }, []);
   return (
     <div>
-      <Container>
+      <Container sx={{marginTop: 5}}>
+        {/* <Breadcrumb/> */}
         <ClientInfo client={clientInfo} />
         <Grid container spacing={2}>
           <Grid item xs={12} md={7}>
