@@ -35,9 +35,9 @@ function Register() {
 		<div style={root}>
 			<Container maxWidth="xl" style={mainContainer}>
 				<Card sx={{ padding: 5 }}>
-					<Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
-						<Box sx={{ flexGrow: 1 }}>
-							<Typography variant="h4" component="h1" gutterBottom>
+					<Stack direction="column" alignItems="center" sx={{ mb: 5 }}>
+						{/* <Box sx={{ flexGrow: 1 }}> */}
+							<Typography variant="h4" component="h1" gutterBottom align="center">
 								Registrar nueva cuenta en Deco Digital
 							</Typography>
 							<img src={DecoLogo} width="200" />
@@ -45,7 +45,7 @@ function Register() {
 							<Typography variant="body1" gutterBottom>
 								Ingresa tus datos
 							</Typography>
-						</Box>
+						{/* </Box> */}
 					</Stack>
 					<RegisterForm />
 				</Card>

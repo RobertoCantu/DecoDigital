@@ -33,6 +33,11 @@ import { PHONE_REGEX } from "../../../utils/regex";
 import { RegisterCode } from "../../authentication/registerCode";
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { authentication } from "../../../firebase-config";
+import { useSnackbar } from 'notistack';
+import { MIconButton } from '../../@material-extend';
+import { Icon } from '@iconify/react';
+import closeFill from '@iconify/icons-eva/close-fill';
+
 
 const theme = createTheme();
 const api = "http://localhost:3000/api";
@@ -76,6 +81,7 @@ const RegisterSchemaContract = Yup.object().shape({
 });
 
 function RegisterForm() {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const navigate = useNavigate();
 	const [verifyCode, setVerifyCode] = useState(false);
 	const [nuc, setNuc] = useState("");
@@ -126,7 +132,14 @@ function RegisterForm() {
 									.confirm(values.code)
 									.then(async (result: any) => {
 										// fetch user to register
-
+                    enqueueSnackbar('¡Codigo verificado con exito!', {
+                      variant: 'success',
+                      action: (key) => (
+                        <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+                          <Icon icon={closeFill} />
+                        </MIconButton>
+                      )
+                    });
 										navigate("/auth/register/password");
 									})
 									.catch((error: any) => {
@@ -245,6 +258,15 @@ function RegisterForm() {
 														});
 												}
 											});
+
+                      enqueueSnackbar('¡Se ha enviado un codigo a tu celular!', {
+                        variant: 'success',
+                        action: (key) => (
+                          <MIconButton size="small" onClick={() => closeSnackbar(key)}>
+                            <Icon icon={closeFill} />
+                          </MIconButton>
+                        )
+                      });
 
 										// go to next page
 

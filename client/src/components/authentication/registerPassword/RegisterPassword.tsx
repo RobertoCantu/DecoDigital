@@ -84,7 +84,8 @@ function RegisterPassword() {
             
             const requestOptions = {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'Bearer': `${token}` },
+              headers: { 'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + token},
               body: JSON.stringify({ password: values.password })
             };
 

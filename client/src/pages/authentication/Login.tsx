@@ -46,9 +46,9 @@ function Login() {
 		<div style={root}>
 			<Container maxWidth="sm" style={mainContainer}>
 				<Card sx={{ padding: 5 }}>
-					<Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
-						<Box sx={{ flexGrow: 1 }}>
-							<Typography variant="h4" gutterBottom>
+					<Stack direction="column" alignItems="center" sx={{ mb: 5 }}>
+						{/* <Box sx={{ flexGrow: 1, width:'100%'}}> */}
+							<Typography variant="h4" gutterBottom align="center">
 								Iniciar Sesión a Deco Digital
 							</Typography>
 							{/* <Box sx={{ width: "100%" }}>
@@ -66,7 +66,7 @@ function Login() {
 							<Typography sx={{ color: "text.secondary" }}>
 								Ingresa tus datos
 							</Typography>
-						</Box>
+						{/* </Box> */}
 					</Stack>
 					<LoginForm />
 				</Card>
