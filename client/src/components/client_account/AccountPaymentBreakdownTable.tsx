@@ -16,13 +16,7 @@ function createData(tipo: string, folio: string, fecha: string, pago: number) {
   };
 }
 
-const rows = [
-  createData("PG", "RB1201529256", "18/07/2012", 280.0),
-  createData("PG", "RB1201529256", "18/07/2012", 280.0),
-  createData("PG", "RB1201529256", "18/07/2012", 280.0),
-  createData("PG", "RB1201529256", "18/07/2012", 280.0),
-  createData("PG", "RB1201529256", "18/07/2012", 280.0),
-];
+const rows = [createData("PG", "RB1201529256", "18/07/2012", 280.0)];
 
 export default function AccountPaymentBreakdownTable() {
   return (

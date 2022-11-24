@@ -16,15 +16,7 @@ function createData(
   return { concepto, pago, vencido, por_vencer };
 }
 
-const rows = [
-  createData("Pagos", 6, 0, 0),
-  createData("Capital", 1259.88, 0, 0.04),
-  createData("Intereses", 182.16, 0, 0.0),
-  createData("IVA", 230.73, 0.0, 0.0),
-  createData("Moratorio", 9.45, 0.0, 0.0),
-  createData("IVA Moratorio", 1.51, 0.0, 0.0),
-  createData("Totales", 1672.77, 0.0, 0.0),
-];
+const rows = [createData("12/05/2022", 4, 500, 0)];
 
 export default function AccountTable() {
   return (
