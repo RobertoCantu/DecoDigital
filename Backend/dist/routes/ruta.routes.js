@@ -61,15 +61,20 @@ rutaRoutes.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
     }
     const passwordNew = rowsLogin[0].password;
+    let incorrect = false;
     // compare passwords
-    bcrypt_1.default.compare(password, passwordNew).then((result) => {
+    yield bcrypt_1.default.compare(password, passwordNew).then((result) => {
         if (!result) {
+            incorrect = true;
             return res.status(400).json({
                 ok: false,
                 message: "Contraseña incorrecta",
             });
         }
     });
+    if (incorrect) {
+        return;
+    }
     let intPhone = parseInt(phone);
     //get nomter, apepaterno, apematerno, correo, identificador from cliente_unico table where nuc = nuc
     const userQuery = `SELECT C.nomter, C.apepaterno, C.apematerno, C.correo_1, C.identificador FROM \`driven-rig-363116.bd_prueba.cliente_unico\` C  WHERE nuc = "${rowsLogin[0].nuc}"`;

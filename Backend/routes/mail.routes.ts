@@ -9,7 +9,10 @@ mailRoutes.post("/report/product/:id", async (req: any, res: Response) => {
   const { contract, message} = req.body;
 
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp-mail.outlook.com",
+    port: 587,
+    secure: false,
+    
     auth: {
       user: process.env.MAIL_USERNAME,
       pass: process.env.MAIL_PASSWORD,

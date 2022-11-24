@@ -87,7 +87,7 @@ function RegisterPassword() {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json",
-								"Bearer ": `${token}`,
+								Authorization: `Bearer ${token}`,
 							},
 							body: JSON.stringify({ password: values.password }),
 						};
