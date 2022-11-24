@@ -11,37 +11,36 @@ import { Icon } from '@iconify/react';
 import closeFill from '@iconify/icons-eva/close-fill';
 import { MIconButton } from './components/@material-extend';
 
-// context 
+// context
 import { AuthProvider } from './contexts/AuthContext';
 
-
-const notistackRef:any = React.createRef();
-const onClickDismiss = (key: any) => () => { 
-    notistackRef.current.closeSnackbar(key);
-}
+const notistackRef: any = React.createRef();
+const onClickDismiss = (key: any) => () => {
+	notistackRef.current.closeSnackbar(key);
+};
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <SnackbarProvider
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        ref={notistackRef}
-        action={(key) => (
-          <MIconButton size="small" onClick={onClickDismiss(key)}>
-            <Icon icon={closeFill} />
-          </MIconButton>
-        )}
-      >
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </SnackbarProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+	<React.StrictMode>
+		<BrowserRouter>
+			<SnackbarProvider
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'center',
+				}}
+				ref={notistackRef}
+				action={(key) => (
+					<MIconButton size='small' onClick={onClickDismiss(key)}>
+						<Icon icon={closeFill} />
+					</MIconButton>
+				)}
+			>
+				<AuthProvider>
+					<App />
+				</AuthProvider>
+			</SnackbarProvider>
+		</BrowserRouter>
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

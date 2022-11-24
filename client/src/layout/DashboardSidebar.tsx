@@ -87,7 +87,7 @@ function DashboardSidebar({ open, handleSidebarClose }: any) {
       </DrawerHeader>
       <Divider />
       <List>
-        <ListItem>
+        <ListItem key={"perfil"} disablePadding>
           <ListItemButton href={PATH_DASHBOARD.general.clientInfo}>
             <ListItemIcon>
               <AccountBalance />

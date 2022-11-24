@@ -19,6 +19,7 @@ import ProductList from "../pages/Products/ProductList";
 import GuestGuard from "../guards/GuestGuard";
 import AuthGuard from "../guards/AuthGuard";
 // import LoadingScreen from '../components/LoadingScreen';
+import ClientInfo from "../pages/User/ClientInfo";
 
 // const Loadable = (Component: React.ElementType) => (props: any) => {
 //   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -97,9 +98,10 @@ export default function Router() {
         </AuthGuard>
       ),
       children: [
+        { path: '/dashboard', element: <Navigate to="/dashboard/products" replace={true}/> },
         {
           path: "client_info/",
-          element: <ClientGrid />,
+          element: <ClientInfo />,
         },
         {
           path: "products",

@@ -4,27 +4,29 @@ import {
 	useEffect,
 	useReducer,
 	useState,
-} from "react";
+} from 'react';
 // types
 import {
 	AuthContextType,
 	AuthUser,
 	AuthState,
 	ActionMap,
-} from "../@types/authentication";
+} from '../@types/authentication';
 // utils
-import axios from "../utils/axios";
+import axios from '../utils/axios';
 // services
 import {
 	login as authLogin,
 	register as authRegister,
-} from "../services/authService";
+} from '../services/authService';
+
+import { isValidToken, setSession } from '../utils/jwt';
 
 enum Types {
-	Initial = "INITIALIZE",
-	Login = "LOGIN",
-	Logout = "LOGOUT",
-	Register = "REGISTER",
+	Initial = 'INITIALIZE',
+	Login = 'LOGIN',
+	Logout = 'LOGOUT',
+	Register = 'REGISTER',
 }
 
 type JWTAuthPayload = {
@@ -53,25 +55,25 @@ const initialState: AuthState = {
 // Reduer function logic
 const AuthReducer = (state: AuthState, action: JWTActions) => {
 	switch (action.type) {
-		case "INITIALIZE":
+		case 'INITIALIZE':
 			return {
 				isAuthenticated: action.payload.isAuthenticated,
 				isInitialized: true,
 				user: action.payload.user,
 			};
-		case "LOGIN":
+		case 'LOGIN':
 			return {
 				...state,
 				isAuthenticated: true,
 				user: action.payload.user,
 			};
-		case "REGISTER":
+		case 'REGISTER':
 			return {
 				...state,
 				isAuthenticated: true,
 				user: action.payload.user,
 			};
-		case "LOGOUT":
+		case 'LOGOUT':
 			return {
 				...state,
 				isAuthenticated: false,
@@ -88,12 +90,18 @@ const AuthContext = createContext<AuthContextType | null>(null);
 function AuthProvider({ children }: { children: ReactNode }) {
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
 
+	console.log('Watiiifor');
+
 	useEffect(() => {
+		console.log('cbdhbcdhbchbcd');
+
 		const initialize = async () => {
-			const user = window.localStorage.getItem("user");
+			const user = window.localStorage.getItem('user');
+			const accessToken = window.localStorage.getItem('accessToken');
+
 			console.log(user);
-			if (user) {
-				console.log("entrooooo");
+			if (user && accessToken && isValidToken(accessToken)) {
+				console.log('entrooooo');
 				dispatch({
 					type: Types.Initial,
 					payload: {
@@ -103,12 +111,12 @@ function AuthProvider({ children }: { children: ReactNode }) {
 				});
 			} else {
 				try {
-					const accessToken = window.localStorage.getItem("accessToken");
+					const accessToken = window.localStorage.getItem('accessToken');
 
-					if (accessToken) {
-						const response = await axios.get("/auth/user", {
+					if (accessToken && isValidToken(accessToken)) {
+						const response = await axios.get('/auth/user', {
 							headers: {
-								Authorization: "Bearer " + accessToken,
+								Authorization: 'Bearer ' + accessToken,
 							},
 						});
 
@@ -163,9 +171,9 @@ function AuthProvider({ children }: { children: ReactNode }) {
 			// }
 
 			// Set JWT in local storage
-			window.localStorage.setItem("accessToken", token);
-			window.localStorage.setItem("user", JSON.stringify(user));
-			window.localStorage.setItem("nuc", JSON.stringify(nuc));
+			window.localStorage.setItem('accessToken', token);
+			window.localStorage.setItem('user', JSON.stringify(user));
+			window.localStorage.setItem('nuc', JSON.stringify(nuc));
 
 			dispatch({
 				type: Types.Login,
@@ -192,8 +200,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
 				id: response._id,
 			};
 			//Set Jwt in local storage
-			window.localStorage.setItem("accessToken", token);
-			window.localStorage.setItem("user", JSON.stringify(user));
+			window.localStorage.setItem('accessToken', token);
+			window.localStorage.setItem('user', JSON.stringify(user));
 
 			dispatch({
 				type: Types.Register,
@@ -208,8 +216,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
 	};
 
 	const logout = async () => {
-		window.localStorage.removeItem("accessToken");
-		window.localStorage.removeItem("user");
+		window.localStorage.removeItem('accessToken');
+		window.localStorage.removeItem('user');
 
 		dispatch({
 			type: Types.Logout,
