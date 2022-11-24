@@ -225,7 +225,7 @@ function RegisterForm() {
 													let appVerifier = window.recaptchaVerifier;
 													signInWithPhoneNumber(
 														authentication,
-														"+526563529786",
+														"+528113231175",
 														appVerifier
 													)
 														.then(async (confirmationResult) => {
