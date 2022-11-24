@@ -7,6 +7,8 @@ import AccountBalances from "./AccountBalances";
 import AccountPaymentBreakdown from "./AccountPaymentBreakdown";
 import AccountPaymenDue from "./AccountPaymenDue";
 import { useParams } from "react-router-dom";
+import { PATH_DASHBOARD } from "../../routes/paths";
+import HeaderBreadcrumbs from "../../components/HeaderBreadcrumbs";
 
 // Components
 //import Breadcrumb from '../Breadcrumb'
@@ -65,8 +67,19 @@ const AccountGrid = (props: Props) => {
   }, []);
   return (
     <div>
-      <Container sx={{marginTop: 5}}>
+      <Container sx={{ marginTop: 5 }}>
         {/* <Breadcrumb/> */}
+        <HeaderBreadcrumbs
+          heading="Lista de productos"
+          links={[
+            { name: "Dashboard", href: PATH_DASHBOARD.root },
+            {
+              name: "Lista de productos",
+              href: PATH_DASHBOARD.general.products,
+            },
+            { name: "Información del producto" },
+          ]}
+        />
         <ClientInfo client={clientInfo} />
         <Grid container spacing={2}>
           <Grid item xs={12} md={7}>
