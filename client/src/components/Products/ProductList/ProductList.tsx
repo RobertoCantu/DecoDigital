@@ -187,8 +187,6 @@ function ProductList(props: Props) {
 		}
 	};
 
-	console.log('Cargando', loading);
-
 	return (
 		<>
 			<div className='container'>

@@ -70,7 +70,7 @@ const AccountGrid = (props: Props) => {
       <Container sx={{ marginTop: 5 }}>
         {/* <Breadcrumb/> */}
         <HeaderBreadcrumbs
-          heading="Lista de productos"
+          heading="Producto"
           links={[
             { name: "Dashboard", href: PATH_DASHBOARD.root },
             {

@@ -90,18 +90,13 @@ const AuthContext = createContext<AuthContextType | null>(null);
 function AuthProvider({ children }: { children: ReactNode }) {
 	const [state, dispatch] = useReducer(AuthReducer, initialState);
 
-	console.log('Watiiifor');
-
 	useEffect(() => {
-		console.log('cbdhbcdhbchbcd');
 
 		const initialize = async () => {
 			const user = window.localStorage.getItem('user');
 			const accessToken = window.localStorage.getItem('accessToken');
 
-			console.log(user);
 			if (user && accessToken && isValidToken(accessToken)) {
-				console.log('entrooooo');
 				dispatch({
 					type: Types.Initial,
 					payload: {
@@ -218,6 +213,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 	const logout = async () => {
 		window.localStorage.removeItem('accessToken');
 		window.localStorage.removeItem('user');
+    window.localStorage.removeItem('nuc')
 
 		dispatch({
 			type: Types.Logout,
