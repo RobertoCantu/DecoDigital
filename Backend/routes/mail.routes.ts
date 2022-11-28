@@ -3,11 +3,18 @@ import nodemailer from "nodemailer";
 import { verifyToken } from '../middlewares/authentication';
 const mailRoutes = Router();
 
+
+//Endpoint para enviar el reporte de un producto
 mailRoutes.post("/report/product/:id", async (req: any, res: Response) => {
   const id = req.params.id;
 
   const { contract, message} = req.body;
-
+  
+  /*
+    Crea el objeto de transporte con el host de outlook y las credenciales del correo
+    que se encargara de enviar los correos lo obtiene desde el .env bajo el nombre de
+    MAIL_USERNAME y MAIL_PASSWORD
+   */
   let transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     port: 587,
@@ -19,12 +26,21 @@ mailRoutes.post("/report/product/:id", async (req: any, res: Response) => {
     },
   });
 
+  /*
+    Crea el objeto de correo electronico con el remitente, destinatario, asunto y cuerpo
+    y lo mand al correo de soporte obtenido desde el .env bajo el nombre de MAIL_USERNAME_RECEIVER
+  */ 
+
   let mailOptions = {
     from: process.env.MAIL_USERNAME,
     to: process.env.MAIL_USERNAME_RECEIVER,
     subject: "Reporte de producto",
     text: `Reporte de producto ${contract} con id: ${id}. \n ${message}`,
   };
+
+  /*
+    Envia el correo electronico 
+  */
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
@@ -42,6 +58,8 @@ mailRoutes.post("/report/product/:id", async (req: any, res: Response) => {
 
   });
 });
+
+//Endpoint para enviar el reporte de un estado de cuenta
 
 mailRoutes.post("/report/estado/:id", async (req: any, res: Response) => {
   const id = req.params.id;

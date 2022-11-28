@@ -76,11 +76,13 @@ function RegisterPassword() {
 						//     </MIconButton>
 						//   )
 						// });
-
+						
+						//Verificar que las contraseñas coincidan
 						if (values.password != values.confirmPassword) {
 							setErrors({ confirmPassword: "Las contraseñas no coinciden" });
 							return;
 						}
+						//Obtiene el token guardado en el localStorage en el momento de generar el codigo de verificacion
 						const token = localStorage.getItem("registerToken");
 
 						const requestOptions = {
@@ -97,6 +99,7 @@ function RegisterPassword() {
 							.then((data) => {
 								if (data.ok) {
 									setSuccess(true);
+									// Elimina el token usado para registrar al usuario
 									localStorage.removeItem("registerToken");
 									setTimeout(() => {
 										window.location.href = "/auth/login";
@@ -107,7 +110,6 @@ function RegisterPassword() {
 							});
 					} catch (error: any) {
 						resetForm();
-						//Falta agregar useRef
 						setErrors({ afterSubmit: error.message });
 					}
 				}}
